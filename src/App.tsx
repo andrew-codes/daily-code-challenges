@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import CodeKata from './ReactCodeKata'
+import CodeKata from './CodeKata'
 import './styles.css'
 
 export default function App() {
@@ -12,9 +12,7 @@ export default function App() {
             <h1>List of Katas</h1>
           </header>
         </Route>
-        <CodeKata description="Test" name="test" date={new Date(2020, 2, 19)}>
-          hello
-        </CodeKata>
+        <CodeKata category="react" name="Test" date={new Date(2020, 2, 19)} />
       </div>
     </Router>
   )
