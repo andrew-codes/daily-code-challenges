@@ -15,11 +15,11 @@ type Props = {
 const ReactCodeKata: FC<Props> = ({ category, date, name }) => {
   const kataId = name.replace(/\s+/g, '-').toLowerCase()
   const ReadMe = loadable(() =>
-    import(`./katas/${kataId}/README.mdx`).then(content => (): FC => (
+    import(`../katas/${kataId}/README.mdx`).then(content => (): FC => (
       <Mdx>{content}</Mdx>
     ))
   )
-  const Demo = loadable(() => import(`./katas/${kataId}/index.tsx`))
+  const Demo = loadable(() => import(`../katas/${kataId}/index.tsx`))
 
   return (
     <Switch>
