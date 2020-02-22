@@ -4,4 +4,4 @@ import MDX from '@mdx-js/runtime'
 const Mdx: FC = ({ children }) => {
   return <MDX>{children}</MDX>
 }
-export { Mdx }
+export default Mdx
