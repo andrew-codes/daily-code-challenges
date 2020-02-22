@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import CodeKata from '../katas/2020-03-20-codekata-component/CodeKata'
+import CodeKata from '../katas/2020-03-22-codekata-component/CodeKata'
 import './styles.css'
 
 export default function App() {
@@ -13,7 +13,7 @@ export default function App() {
         <CodeKata
           category="react"
           name="CodeKata Component"
-          date={new Date(2020, 2, 20)}
+          date={new Date(2020, 2, 22)}
         />
       </div>
     </Router>
