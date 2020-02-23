@@ -23,3 +23,7 @@ Components often own the external spacing surrounding themselves. However, in do
 
 - [ ] Given the group is centered, when rendering the group of components horizontally, then the components are horizontally centered within their parent
 - [ ] Given the group is centered, when rendering the group of components vertically, then the components are vertically centered within their parent
+
+#### Changing Root Component
+
+- [ ] Given a React component to be used as the root element, when rendering the group of components, the root component is rendered as the provided component.
