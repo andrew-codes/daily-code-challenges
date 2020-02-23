@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 import loadable from '@loadable/component'
 import { Route, Switch } from 'react-router'
 import { Link } from 'react-router-dom'
-import Mdx from './Mdx'
 import { getDatePrefix } from './getDatePrefix'
 
 type Category = 'react' | 'javascript' | 'typescript'
@@ -19,11 +18,11 @@ const CodeKata: FC<Props> = ({ category, date, name, pathPrefix }) => {
   const kataDirectoryName = `${datePrefix}-${name
     .replace(/\s+/g, '-')
     .toLowerCase()}`
-  const ReadMe = loadable(() =>
-    import(`../${kataDirectoryName}/README.md`).then(content => (): FC => (
-      <Mdx>{content}</Mdx>
-    ))
-  )
+  // const ReadMe = loadable(() =>
+  //   import(`../${kataDirectoryName}/README.md`).then(content => (): FC => (
+  //     <Mdx>{content}</Mdx>
+  //   ))
+  // )
   const Demo = loadable(() => import(`../${kataDirectoryName}/index.tsx`))
 
   return (
@@ -54,7 +53,7 @@ const CodeKata: FC<Props> = ({ category, date, name, pathPrefix }) => {
             </header>
             <section>
               <h2>Read Me</h2>
-              <ReadMe />
+              {/* <ReadMe /> */}
             </section>
             {category === 'react' && (
               <section>

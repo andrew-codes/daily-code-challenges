@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import CodeKata from '../katas/2020-02-22-codekata-component/CodeKata'
+import CodeKata from './katas/2020-02-22-codekata-component/CodeKata'
 import './styles.css'
 
 export default function App() {
