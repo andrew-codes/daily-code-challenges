@@ -18,11 +18,9 @@ const CodeKata: FC<Props> = ({ category, date, name, pathPrefix }) => {
   const kataDirectoryName = `${datePrefix}-${name
     .replace(/\s+/g, '-')
     .toLowerCase()}`
-  // const ReadMe = loadable(() =>
-  //   import(`../${kataDirectoryName}/README.md`).then(content => (): FC => (
-  //     <Mdx>{content}</Mdx>
-  //   ))
-  // )
+  const ReadMe = loadable(() =>
+    import(`../${kataDirectoryName}/README.mdx`)
+  )
   const Demo = loadable(() => import(`../${kataDirectoryName}/index.tsx`))
 
   return (
@@ -36,7 +34,7 @@ const CodeKata: FC<Props> = ({ category, date, name, pathPrefix }) => {
             </time>
           </Link>
         </Route>
-        <Route path={`${pathPrefix}/:kataId`}>
+        <Route exact={true} path={`${pathPrefix}/${kataDirectoryName}`}>
           <aside>
             <Link to="/">Back to Katas List</Link>
           </aside>
@@ -53,7 +51,7 @@ const CodeKata: FC<Props> = ({ category, date, name, pathPrefix }) => {
             </header>
             <section>
               <h2>Read Me</h2>
-              {/* <ReadMe /> */}
+              <ReadMe />
             </section>
             {category === 'react' && (
               <section>
