@@ -11,7 +11,7 @@ type Props = {
   date: Date
   name: string
   category: Category
-  pathPrefix: string
+  pathPrefix?: string
 }
 
 const CodeKata: FC<Props> = ({ category, date, name, pathPrefix }) => {
@@ -27,46 +27,49 @@ const CodeKata: FC<Props> = ({ category, date, name, pathPrefix }) => {
   const Demo = loadable(() => import(`../${kataDirectoryName}/index.tsx`))
 
   return (
-    <Switch>
-      <Route exact={true} path={`${pathPrefix}/`}>
-        <Link to={`${pathPrefix}/${kataDirectoryName}`}>
-          {category}: {name} -{' '}
-          <time dateTime={date.toLocaleDateString()}>
-            {date.toLocaleDateString()}
-          </time>
-        </Link>
-      </Route>
-      <Route path={`${pathPrefix}/:kataId`}>
-        <aside>
-          <Link to="/">Back to Katas List</Link>
-        </aside>
-        <article>
-          <header>
-            <h1>{name}</h1>
-            <p>
-              completed on{' '}
-              <time dateTime={date.toLocaleDateString()}>
-                {date.toLocaleDateString()}
-              </time>
-            </p>
-            <p>Category: {category}</p>
-          </header>
-          <section>
-            <h2>Read Me</h2>
-            <ReadMe />
-          </section>
-          {category === 'react' && (
+    <div>
+      <Switch>
+        <Route exact={true} path={`${pathPrefix}/`}>
+          <Link to={`${pathPrefix}/${kataDirectoryName}`}>
+            {category}: {name} -{' '}
+            <time dateTime={date.toLocaleDateString()}>
+              {date.toLocaleDateString()}
+            </time>
+          </Link>
+        </Route>
+        <Route path={`${pathPrefix}/:kataId`}>
+          <aside>
+            <Link to="/">Back to Katas List</Link>
+          </aside>
+          <article>
+            <header>
+              <h1>{name}</h1>
+              <p>
+                completed on{' '}
+                <time dateTime={date.toLocaleDateString()}>
+                  {date.toLocaleDateString()}
+                </time>
+              </p>
+              <p>Category: {category}</p>
+            </header>
             <section>
-              <h2>Demo</h2>
-              <Demo />
+              <h2>Read Me</h2>
+              <ReadMe />
             </section>
-          )}
-        </article>
-      </Route>
-    </Switch>
+            {category === 'react' && (
+              <section>
+                <h2>Demo</h2>
+                <Demo />
+              </section>
+            )}
+          </article>
+        </Route>
+      </Switch>
+    </div>
   )
 }
 CodeKata.defaultProps = {
   pathPrefix: '',
-}
+} as Partial<Props>
+
 export default CodeKata
