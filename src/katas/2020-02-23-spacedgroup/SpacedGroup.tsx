@@ -7,6 +7,12 @@ const computeInnerSpacing = (spacing: string | number): string => {
     }
     return spacing
 }
+const computeOuterSpacing = (spacing: string | number): string => {
+    if (typeof spacing === 'number') {
+        return `${spacing}px`
+    }
+    return spacing
+}
 const AsElementType = ({ as, ...rest }: Props) => React.createElement(as, { ...rest })
 
 export enum Direction {
@@ -33,6 +39,12 @@ const SpacedGroup = ({ as, centered, children, spacing, spread }: Props) => {
         > * {
             display: inline-flex;
             margin: ${({ spacing }: Props) => computeInnerSpacing(spacing)};
+        }
+        > *:first-child {
+            margin-left: ${({ spacing }: Props) => computeOuterSpacing(spacing)}
+        }
+        > *:last-child {
+            margin-right: ${({ spacing }: Props) => computeOuterSpacing(spacing)}
         }
     `
     return (
