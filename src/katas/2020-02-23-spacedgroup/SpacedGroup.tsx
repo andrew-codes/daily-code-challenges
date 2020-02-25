@@ -1,19 +1,13 @@
-import React, { ElementType } from 'react'
+import React, { ElementType, ComponentClass, StatelessComponent, FunctionComponent } from 'react'
 import { styled } from "linaria/react";
 
-const computeInnerSpacing = (spacing: string | number | undefined): string => {
-    if (!spacing) return '8px'
+const computeInnerSpacing = (spacing: string | number): string => {
     if (typeof spacing === 'number') {
         return `${Math.floor(spacing / 2)}px`
     }
     return spacing
 }
-
-type DCProps = {
-    as: string | ElementType
-    children: React.ReactNode
-}
-const DynamicComponent = ({ as, children }: DCProps) => React.createElement(as, { children })
+const AsElementType = ({ as, ...rest }: Props) => React.createElement(as, { ...rest })
 
 export enum Direction {
     horizontal = 'horizontal',
@@ -25,24 +19,24 @@ const defaultProps = {
     direction: Direction.horizontal
 }
 type Props = {
-    as?: ElementType,
+    as: ElementType | ComponentClass | StatelessComponent | FunctionComponent,
     children: React.ReactNode,
     direction?: Direction,
     spacing: string | number,
     spread?: boolean,
     centered?: boolean,
-} & typeof defaultProps
-
-const SpacedGroup = ({ as, children }: Props) => {
-    const Root = styled(DynamicComponent)`
-        diplay: flex
+}
+const SpacedGroup = ({ as, centered, children, spacing, spread }: Props) => {
+    const Root = styled(AsElementType)`
+        display: flex;
+        padding: 0;
         > * {
             display: inline-flex;
-            margin: ${({ spacing }: Partial<Props>) => computeInnerSpacing(spacing)};
+            margin: ${({ spacing }: Props) => computeInnerSpacing(spacing)};
         }
     `
     return (
-        <Root as={as}>
+        <Root as={as} centered={centered} spacing={spacing} spread={spread}>
             {children}
         </Root>
     )
