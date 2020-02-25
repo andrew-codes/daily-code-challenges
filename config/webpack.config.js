@@ -16,7 +16,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
-const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+// const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const paths = require('./paths');
 const modules = require('./modules');
@@ -306,7 +306,7 @@ module.exports = function (webpackEnv) {
         // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
         // please link the files into your node_modules/ and let module-resolution kick in.
         // Make sure your source files are compiled, as they will not be processed in any way.
-        new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
+        // new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
       ],
     },
     resolveLoader: {
@@ -370,35 +370,43 @@ module.exports = function (webpackEnv) {
                 {
                   loader: require.resolve('babel-loader'),
                   options: {
-                    customize: require.resolve(
-                      'babel-preset-react-app/webpack-overrides'
-                    ),
-
-                    plugins: [
-                      [
-                        require.resolve('babel-plugin-named-asset-import'),
-                        {
-                          loaderMap: {
-                            svg: {
-                              ReactComponent:
-                                '@svgr/webpack?-svgo,+titleProp,+ref![path]',
-                            },
-                          },
-                        },
-                      ],
-                    ],
-                    // This is a feature of `babel-loader` for webpack (not Babel itself).
-                    // It enables caching results in ./node_modules/.cache/babel-loader/
-                    // directory for faster rebuilds.
-                    cacheDirectory: true,
-                    // See #6846 for context on why cacheCompression is disabled
-                    cacheCompression: false,
-                    compact: isEnvProduction,
-                  },
+                    babelrc: true
+                  }
                 },
                 {
                   loader: require.resolve('linaria/loader')
-                }
+                },
+                { loader: require.resolve('ts-loader') },
+                // {
+                //   loader: require.resolve('babel-loader'),
+                //   options: {
+                //     babelrc: true,
+                //     customize: require.resolve(
+                //       'babel-preset-react-app/webpack-overrides'
+                //     ),
+                //     plugins: [
+                //       [
+                //         require.resolve('babel-plugin-named-asset-import'),
+                //         {
+                //           loaderMap: {
+                //             svg: {
+                //               ReactComponent:
+                //                 '@svgr/webpack?-svgo,+titleProp,+ref![path]',
+                //             },
+                //           },
+                //         },
+                //       ],
+                //     ],
+                //     // This is a feature of `babel-loader` for webpack (not Babel itself).
+                //     // It enables caching results in ./node_modules/.cache/babel-loader/
+                //     // directory for faster rebuilds.
+                //     cacheDirectory: true,
+                //     // See #6846 for context on why cacheCompression is disabled
+                //     cacheCompression: false,
+                //     compact: isEnvProduction,
+                //   },
+                // },
+
               ]
             },
             // Process any JS outside of the app with Babel.
@@ -416,6 +424,7 @@ module.exports = function (webpackEnv) {
                     require.resolve('babel-preset-react-app/dependencies'),
                     { helpers: true },
                   ],
+                  'linaria/babel'
                 ],
                 cacheDirectory: true,
                 // See #6846 for context on why cacheCompression is disabled

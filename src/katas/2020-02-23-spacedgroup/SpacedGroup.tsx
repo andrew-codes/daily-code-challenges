@@ -1,4 +1,19 @@
-import React, { FC, createElement } from 'react'
+import React, { ElementType } from 'react'
+import { styled } from "linaria/react";
+
+const computeInnerSpacing = (spacing: string | number | undefined): string => {
+    if (!spacing) return '8px'
+    if (typeof spacing === 'number') {
+        return `${Math.floor(spacing / 2)}px`
+    }
+    return spacing
+}
+
+type DCProps = {
+    as: string | ElementType
+    children: React.ReactNode
+}
+const DynamicComponent = ({ as, children }: DCProps) => React.createElement(as, { children })
 
 export enum Direction {
     horizontal = 'horizontal',
@@ -10,17 +25,27 @@ const defaultProps = {
     direction: Direction.horizontal
 }
 type Props = {
-    as: string | React.Component
+    as?: ElementType,
+    children: React.ReactNode,
+    direction?: Direction,
     spacing: string | number,
     spread?: boolean,
     centered?: boolean,
-    direction: Direction
 } & typeof defaultProps
 
-const SpacedGroup: FC<Props> = ({ as, centered, children, direction, spacing, spread }) => {
-    return createElement(as, {
-        children
-    })
+const SpacedGroup = ({ as, children }: Props) => {
+    const Root = styled(DynamicComponent)`
+        diplay: flex
+        > * {
+            display: inline-flex;
+            margin: ${({ spacing }: Partial<Props>) => computeInnerSpacing(spacing)};
+        }
+    `
+    return (
+        <Root as={as}>
+            {children}
+        </Root>
+    )
 }
 SpacedGroup.defaultProps = defaultProps
 
