@@ -41,6 +41,13 @@ const CodeKata: FC<Props> = ({ category, date, name, pathPrefix }) => {
                 </time>
               </p>
               <p>Category: {category}</p>
+              <p>
+                <a
+                  href={`https://github.com/andrew-codes/daily-code-challenges/tree/master/src/katas/${kataDirectoryName}`}
+                >
+                  link to code on GitHub
+                </a>
+              </p>
             </header>
             <section>
               <ReadMe />
