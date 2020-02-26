@@ -1,5 +1,4 @@
 node_modules
-.linaria-cache
 *.log
 build/*
 !build/__redirects
