@@ -1,4 +1,4 @@
 node_modules
 *.log
 build/*
-!build/__redirects
+!build/_redirects
