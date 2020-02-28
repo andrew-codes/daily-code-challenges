@@ -20,6 +20,7 @@ export default function App() {
           name="SpacedGroup"
           date={new Date(2020, 1, 25)}
         />
+        <CodeKata category="react" name="Tree" date={new Date(2020, 1, 28)} />
       </div>
     </Router>
   )

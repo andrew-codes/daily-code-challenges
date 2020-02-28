@@ -1,0 +1,280 @@
+import { useState } from 'react'
+import { Preview } from '../codekata-component/Preview'
+import { Tree } from './Tree'
+
+## Problem
+
+Create a component(s) to render hiearchical data. Relationships of each node should be visually identifiable. The hiearchical data is an arbitrary depth and breadth.
+
+### Expansion and Selection
+
+Rendered nodes can be selected. Selecting a non-leaf node toggles the expansion of the node. Expanding a node will show all of its immediate children.
+
+Selecting a leaf node, marks it as selected. One or more leaf nodes may be selected at a time.
+
+Nodes may be set as expanded by default when provided with an array of node IDs. Any node that is expaned by default ensures that it, and all of its parents are also expanded. If the expandedByDefault option is provided as 'all', then all nodes are expanded by default. Nodes expanded by default only impact the expansion of a node for the initial rendering of the Tree. It does not block or prevent the user from expanding/collapsing nodes.
+
+## Approach
+
+Instead of accepting a nested data structure, I am favoring a component `Tree` which accepts a flat list of nodes; with each node containing a reference to its parent and a collection of its children. The flat list is a keyed collection, with the key being a unique ID for the node.
+
+It is also worth mentioning that the `Tree` component does not own/control how it renders its nodes. The responsbility of the `Tree` is:
+
+- track open and closed nodes
+- track selected nodes
+- render nodes in an appropriately nested way
+
+Example Data used in all Examples:
+
+```js
+const nodes = {
+  'Node:1': {
+    isRoot: true,
+    children: ['Node:2'],
+    name: 'node 1',
+  },
+  'Node:2': {
+    children: ['Node:3'],
+    parent: 'Node:1',
+    name: 'node 2',
+  },
+  'Node:3': {
+    children: ['Node:4'],
+    parent: 'Node:2',
+    name: 'node 3',
+  },
+  'Node:4': {
+    children: [],
+    parent: 'Node:3',
+    name: 'node 4',
+  },
+  'Node:5': {
+    isRoot: true,
+    children: ['Node:6', 'Node:7'],
+    name: 'node 5',
+  },
+  'Node:6': {
+    children: ['Node:8'],
+    parent: 'Node:5',
+    name: 'node 6',
+  },
+  'Node:7': {
+    children: [],
+    parent: 'Node:5',
+    name: 'node 7',
+  },
+  'Node:8': {
+    children: [],
+    parent: 'Node:6',
+    name: 'node 8',
+  },
+}
+```
+
+export const nodes = {
+  'Node:1': {
+    isRoot: true,
+    children: ['Node:2'],
+    name: 'node 1',
+  },
+  'Node:2': {
+    children: ['Node:3'],
+    parent: 'Node:1',
+    name: 'node 2',
+  },
+  'Node:3': {
+    children: ['Node:4'],
+    parent: 'Node:2',
+    name: 'node 3',
+  },
+  'Node:4': {
+    children: [],
+    parent: 'Node:3',
+    name: 'node 4',
+  },
+  'Node:5': {
+    isRoot: true,
+    children: ['Node:6', 'Node:7'],
+    name: 'node 5',
+  },
+  'Node:6': {
+    children: ['Node:8'],
+    parent: 'Node:5',
+    name: 'node 6',
+  },
+  'Node:7': {
+    children: [],
+    parent: 'Node:5',
+    name: 'node 7',
+  },
+  'Node:8': {
+    children: [],
+    parent: 'Node:6',
+    name: 'node 8',
+  },
+}
+
+## Rendering Nodes in Tree
+
+- [ ] Given a collection of nodes with multiple root nodes, when rendering the tree, then it renders each root node.
+- [ ] Given a collection of nodes and a Node renderer or component, when rendering the tree, then it renders each node via the provided NodeRenderer prop.
+- [ ] Given a collection of nodes and a Node renderer and an indenation value, when rendering the tree, then each node renderer receives the level, and level of indentation.
+- [ ] Given a collection of nodes and a Node renderer, when rendering the tree, then each node renderer receives whether it is a leaf.
+- [ ] Given the collection of nodes contains additional properties, when rendering the tree, then these additional properties are provdied to node renderer prop.
+
+Example Tree Usage with a SimpleNodeRenderer:
+
+```jsx
+const SimpleNodeRenderer = ({ indentation, isLeaf, level, name }) => (
+  <div style={{ paddingLeft: `${indentation}` }}>
+    <Typography>
+      {isLeaf ? '*' : '>'} Level: {level}, {name}
+    </Typography>
+  </div>
+)
+
+const MyTree = <Tree nodes={nodes} NodeRenderer={SimpleNodeRenderer} />
+```
+
+export const SimpleNodeRenderer = ({ indentation, isLeaf, level, name }) => (
+  <div style={{ paddingLeft: `${indentation}` }}>
+    <Typography>
+      {isLeaf ? '*' : '>'} Level: {level}, {name}
+    </Typography>
+  </div>
+)
+
+<Preview>
+  <Tree nodes={nodes} NodeRenderer={SimpleNodeRenderer} />
+</Preview>
+
+## Tree Expansion and Selection
+
+- [ ] given multi-level nodes, when rendering the tree, then it provides the NodeRenderer with a mechanism to select itself.
+- [ ] given multi-level nodes and the expandedByDefault is 'all', when rendering the tree, then it expands all nodes initially.
+- [ ] given multi-level nodes and the expandedByDefault is an array of IDs, when rendering the tree, then it expands the IDs, including their parent ancestry.
+
+```jsx
+const ExpansionNodeRenderer = ({
+  expanded,
+  indentation,
+  isLeaf,
+  level,
+  name,
+  onSelect,
+}) => (
+  <div style={{ paddingLeft: `${indentation}` }} onClick={onSelect}>
+    <Typography>
+      {expanded ? '^' : isLeaf ? '*' : '>'} Level: {level}, {name}
+    </Typography>
+  </div>
+)
+
+const PartiallyExpandedByDefault = (
+  <Tree
+    expandedByDefault={['Node:3', 'Node:6']}
+    NodeRenderer={ExpansionNodeRenderer}
+    nodes={nodes}
+  />
+)
+
+const AllExpandedByDefault = (
+  <Tree
+    expandedByDefault="all"
+    NodeRenderer={ExpansionNodeRenderer}
+    nodes={nodes}
+  />
+)
+```
+
+export const ExpansionNodeRenderer = ({
+  expanded,
+  indentation,
+  isLeaf,
+  level,
+  name,
+  onSelect,
+}) => (
+  <div style={{ paddingLeft: `${indentation}` }} onClick={onSelect}>
+    <Typography>
+      {expanded ? '^' : isLeaf ? '*' : '>'} Level: {level}, {name}
+    </Typography>
+  </div>
+)
+
+### Expand Node:3 and Node:6 by Default
+
+<Preview>
+  <Tree
+    expandedByDefault={['Node:3', 'Node:6']}
+    NodeRenderer={ExpansionNodeRenderer}
+    nodes={nodes}
+  />
+</Preview>
+
+### Expand all Nodes by Default
+
+<Preview>
+  <Tree
+    expandedByDefault="all"
+    NodeRenderer={ExpansionNodeRenderer}
+    nodes={nodes}
+  />
+</Preview>
+
+## Leaf Node Selections
+
+- [ ] given multi-level nodes, when rendering the tree, then it provides the onSelect provided to the Node renderer selects marks the node as selected instead a noop toggle.
+- [ ] given multi-level nodes with some nodes as selected, when rendering the tree, then it provides each NodeRenderer with if it is selected.
+
+```jsx
+const ExpansionNodeRenderer = ({
+  expanded,
+  indentation,
+  isLeaf,
+  level,
+  name,
+  onSelect,
+}) => (
+  <div style={{ paddingLeft: `${indentation}` }} onClick={onSelect}>
+    <Typography>
+      {expanded ? '^' : isLeaf ? '*' : '>'} Level: {level}, {name}
+    </Typography>
+  </div>
+)
+
+const TreeTrackingSelected = () => {
+  const [selected, setSelected] = useState([])
+
+  return (
+    <>
+      <h3>Selected: {selected.join(', ')}</h3>
+      <Tree
+        expandedByDefault={['Node:3', 'Node:6']}
+        NodeRenderer={ExpansionNodeRenderer}
+        nodes={nodes}
+        onSelectingLeaf={allSelected => setSelected(allSelected)}
+      />
+    </>
+  )
+}
+```
+
+export const TreeTrackingSelected = () => {
+  const [selected, setSelected] = useState([])
+  return (
+    <>
+      <h3>Selected: {selected.join(', ')}</h3>
+      <Tree
+        expandedByDefault={['Node:3', 'Node:6']}
+        NodeRenderer={ExpansionNodeRenderer}
+        nodes={nodes}
+        onSelectingLeaf={allSelected => setSelected(allSelected)}
+      />
+    </>
+  )
+}
+
+<Preview>
+  <TreeTrackingSelected />
+</Preview>
