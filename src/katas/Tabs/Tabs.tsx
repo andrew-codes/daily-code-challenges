@@ -1,6 +1,6 @@
 import React, { FC, useContext, useEffect } from 'react'
 import { merge } from 'lodash'
-import { SpacedGroup, Direction } from '../SpacedGroup'
+import { SpacedGroup, Direction } from '../SpacedGroup1'
 import { TabContext } from './TabManager'
 
 export enum TabDirection {
