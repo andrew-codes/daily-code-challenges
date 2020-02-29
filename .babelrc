@@ -4,5 +4,8 @@
     "@babel/preset-react",
     "@babel/preset-typescript"
   ],
-  "plugins": ["babel-plugin-styled-components"]
+  "plugins": [
+    "@babel/plugin-proposal-optional-chaining",
+    "babel-plugin-styled-components"
+  ]
 }

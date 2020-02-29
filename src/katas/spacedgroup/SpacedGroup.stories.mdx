@@ -1,0 +1,138 @@
+import { Meta, Props, Preview } from '@storybook/addon-docs/blocks'
+import { SpacedGroup, Direction } from './SpacedGroup'
+
+<Meta title="2020-02-25: SpacedGroup" />
+
+# SpacedGroup
+
+## Problem
+
+Components often own the external spacing surrounding themselves. However, in doing so, it limits the components' capability to be re-used. Spacing around a component is most often directly related to the context in which the component is used. Create an abstraction that is responsible for providing (even) spacing between a group of components.
+
+### Criteria
+
+- [x] Given a spacing value, when rendering a group of components horizontally, then components are rendered with the predfined amount of space between each one.
+- [x] Given a spacing value, when rendering a group of components vertically, then components are rendered with the predfined amount of space between each one.
+- [x] Given a spacing value and no units, when rendering a group of components, then the spacing unit is pixels.
+- [x] Given a spacing value and a unit of measurement, when rendering a group of components, then the spacing unit is the same as the units provided.
+- [x] Given a spacing value, when rendering a group of components, then there is the spacing value's amount of space before the first component.
+- [x] Given a spacing value, when rendering a group of components, then there is the spacing value's amount of space after the last component.
+- [x] Given no gutters are to be rendered, when rendering a group of components horizontally, then there is no spacing to the left the first component.
+- [x] Given no gutters are to be rendered, when rendering a group of components vertically, then there is no spacing to the top the first component.
+- [x] Given no gutters are to be rendered, when rendering a group of components horizontally, then there is no spacing to the right the last component.
+- [x] Given no gutters are to be rendered, when rendering a group of components vertically, then there is no spacing to the bottom the last component.
+- [x] Given the group is spread, when rendering a group of components horizontally, then the components are equally spaced within the width of their container.
+- [x] Given group is spread, when rendering a group of components vertically, then the components are equally spaced within the height of their container.
+- [x] Given the group is centered, when rendering the group of components horizontally, then the components are horizontally centered within their parent.
+- [x] Given the group is centered, when rendering the group of components vertically, then the components are horizontally centered within their parent.
+- [x] Given a React component to be used as the root element, when rendering the group of components, the root component is rendered as the provided component.
+
+export const Border = ({children}) =>  <div style={{border: '1px solid black'}}>{children}</div>
+
+## Spacing
+
+<Preview>
+    <SpacedGroup direction={Direction.vertical} spacing={8}>
+        <Border>
+            <SpacedGroup spacing={16}>
+                <div>horizontal</div>
+                <span>horizontal</span>
+            </SpacedGroup>
+        </Border>
+        <Border>
+            <SpacedGroup spacing={16} direction={Direction.vertical}>
+                <div>vertical</div>
+                <span>vertical</span>
+            </SpacedGroup>
+        </Border>
+        <Border>
+            <SpacedGroup spacing={3} unit="rem">
+                <div>horizontal</div>
+                <span>horizontal</span>
+            </SpacedGroup>
+        </Border>
+        <Border>
+            <SpacedGroup spacing={3} direction={Direction.vertical} unit="rem">
+                <div>vertical</div>
+                <span>vertical</span>
+            </SpacedGroup>
+        </Border>
+    </SpacedGroup>
+</Preview>
+
+## No Gutters
+
+<Preview>
+    <SpacedGroup direction={Direction.vertical} spacing={8}>
+        <Border>
+            <SpacedGroup noGutters spacing={16}>
+                <div>no</div>
+                <span>gutters</span>
+            </SpacedGroup>
+        </Border>
+        <Border>
+            <SpacedGroup noGutters spacing={16} direction={Direction.vertical}>
+                <div>no</div>
+                <span>gutters</span>
+            </SpacedGroup>
+        </Border>
+    </SpacedGroup>
+</Preview>
+
+## Spread
+
+<Preview>
+    <SpacedGroup direction={Direction.vertical} spacing={8}>
+        <Border>
+        <SpacedGroup spread spacing={16}>
+            <div>spread</div>
+            <span>spread</span>
+        </SpacedGroup>
+    </Border>
+    <div style={{border: '1px solid black', height: '300px'}}>
+        <SpacedGroup spread spacing={16} direction={Direction.vertical}>
+            <div>spread</div>
+            <span>spread</span>
+        </SpacedGroup>
+    </div>
+    </SpacedGroup>
+</Preview>
+
+## Centered
+
+<Preview>
+    <SpacedGroup direction={Direction.vertical} spacing={8}>
+        <Border>
+            <SpacedGroup centered spacing={16}>
+                <div style={{lineHeight: '50px'}}>vertically centered</div>
+                <span>centered</span>
+                    <div style={{height: '35px', background: 'cyan', width: '35px'}}></div>
+                    <div style={{height: '5px', background: 'cyan', width: '5px'}}></div>
+            </SpacedGroup>
+        </Border>
+        <Border>
+            <SpacedGroup centered spacing={16} direction={Direction.vertical}>
+                <div>horizontally centered</div>
+                <span>horizontally centered</span>
+                    <div style={{height: '35px', background: 'cyan', width: '35px'}}></div>
+                    <div style={{height: '5px', background: 'cyan', width: '5px'}}></div>
+            </SpacedGroup>
+        </Border>
+    </SpacedGroup>
+</Preview>
+
+## Changing Root Component
+
+<Preview>
+    <Border>
+        <SpacedGroup as="span" direction={Direction.vertical} spacing={16}>
+            <span>SpacedGroup is a span</span>
+            <span>SpacedGroup is a span</span>
+        </SpacedGroup>
+    </Border>
+</Preview>
+
+
+## Props
+
+<Props of={SpacedGroup} />
