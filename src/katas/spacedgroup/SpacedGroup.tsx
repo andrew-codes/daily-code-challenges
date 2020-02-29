@@ -40,8 +40,9 @@ export const SpacedGroup = ({ as, ...rest }: SpacedGroupProps) => {
   const Root = styled(as)`
     display: flex;
     padding: 0;
-    align-items: ${({ centered, direction }) =>
-      direction === Direction.horizontal && centered ? 'center' : undefined};
+    width: ${({ spread }) => spread ? '100%' : undefined};
+    align-items: ${({ centered, spread }) =>
+      !spread && centered ? 'center' : undefined};
     justify-items: ${({ centered, direction }) =>
       direction === Direction.vertical && centered ? 'center' : undefined};
     flex-direction: ${({ direction }) =>
@@ -53,14 +54,14 @@ export const SpacedGroup = ({ as, ...rest }: SpacedGroupProps) => {
       display: ${({ spread }) => (spread ? 'flex' : 'inline-flex')};
       align-items: ${({ spread }) => (spread ? 'center' : undefined)};
       margin: ${({ direction, spacing, spread, unit }) =>
-        spread
-          ? '0'
-          : direction === Direction.horizontal
+      spread
+        ? '0'
+        : direction === Direction.horizontal
           ? `0 ${computeInnerSpacing(spacing, unit)}`
           : `${computeInnerSpacing(spacing, unit)} 0`};
       flex: ${({ spread }) => (spread ? '1' : '')};
       justify-content: ${({ direction, spread }) =>
-        spread && direction === Direction.horizontal ? 'center' : undefined};
+      spread && direction === Direction.horizontal ? 'center' : undefined};
     }
 
     &:before {
@@ -77,24 +78,24 @@ export const SpacedGroup = ({ as, ...rest }: SpacedGroupProps) => {
 
     > *:first-child {
       margin-left: ${({ direction, noGutters, spacing, spread, unit }) =>
-        direction === Direction.horizontal && !noGutters && !spread
-          ? computeOuterSpacing(spacing, unit)
-          : 0};
+      direction === Direction.horizontal && !noGutters && !spread
+        ? computeOuterSpacing(spacing, unit)
+        : 0};
       margin-top: ${({ direction, noGutters, spacing, spread, unit }) =>
-        direction === Direction.vertical && !noGutters && !spread
-          ? computeOuterSpacing(spacing, unit)
-          : 0};
+      direction === Direction.vertical && !noGutters && !spread
+        ? computeOuterSpacing(spacing, unit)
+        : 0};
     }
 
     > *:last-child {
       margin-right: ${({ direction, noGutters, spacing, spread, unit }) =>
-        direction === Direction.horizontal && !noGutters && !spread
-          ? computeOuterSpacing(spacing, unit)
-          : 0};
+      direction === Direction.horizontal && !noGutters && !spread
+        ? computeOuterSpacing(spacing, unit)
+        : 0};
       margin-bottom: ${({ direction, noGutters, spacing, spread, unit }) =>
-        direction === Direction.vertical && !noGutters && !spread
-          ? computeOuterSpacing(spacing, unit)
-          : 0};
+      direction === Direction.vertical && !noGutters && !spread
+        ? computeOuterSpacing(spacing, unit)
+        : 0};
     }
   `
 

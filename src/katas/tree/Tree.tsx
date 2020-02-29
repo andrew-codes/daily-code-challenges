@@ -9,8 +9,8 @@ const getChildren = <TNode extends TreeNodeData>(
   isEmpty(nodes[id]?.children)
     ? []
     : nodes[id].children.concat(
-        flatten(nodes[id].children.map(childId => getChildren(nodes, childId)))
-      )
+      flatten(nodes[id].children.map(childId => getChildren(nodes, childId)))
+    )
 const getMeAndMyParents = <TNode extends TreeNodeData>(
   nodes: TreeData<TNode>,
   id?: string
