@@ -116,11 +116,11 @@ export const nodes = {
 
 ## Rendering Nodes in Tree
 
-- [ ] Given a collection of nodes with multiple root nodes, when rendering the tree, then it renders each root node.
-- [ ] Given a collection of nodes and a Node renderer or component, when rendering the tree, then it renders each node via the provided NodeRenderer prop.
-- [ ] Given a collection of nodes and a Node renderer and an indenation value, when rendering the tree, then each node renderer receives the level, and level of indentation.
-- [ ] Given a collection of nodes and a Node renderer, when rendering the tree, then each node renderer receives whether it is a leaf.
-- [ ] Given the collection of nodes contains additional properties, when rendering the tree, then these additional properties are provdied to node renderer prop.
+- [x] Given a collection of nodes with multiple root nodes, when rendering the tree, then it renders each root node.
+- [x] Given a collection of nodes and a Node renderer or component, when rendering the tree, then it renders each node via the provided NodeRenderer prop.
+- [x] Given a collection of nodes and a Node renderer and an indenation value, when rendering the tree, then each node renderer receives the level, and level of indentation.
+- [x] Given a collection of nodes and a Node renderer, when rendering the tree, then each node renderer receives whether it is a leaf.
+- [x] Given the collection of nodes contains additional properties, when rendering the tree, then these additional properties are provdied to node renderer prop.
 
 Example Tree Usage with a SimpleNodeRenderer:
 
@@ -150,9 +150,9 @@ export const SimpleNodeRenderer = ({ indentation, isLeaf, level, name }) => (
 
 ## Tree Expansion and Selection
 
-- [ ] given multi-level nodes, when rendering the tree, then it provides the NodeRenderer with a mechanism to select itself.
-- [ ] given multi-level nodes and the expandedByDefault is 'all', when rendering the tree, then it expands all nodes initially.
-- [ ] given multi-level nodes and the expandedByDefault is an array of IDs, when rendering the tree, then it expands the IDs, including their parent ancestry.
+- [x] given multi-level nodes, when rendering the tree, then it provides the NodeRenderer with a mechanism to select itself.
+- [x] given multi-level nodes and the expandedByDefault is 'all', when rendering the tree, then it expands all nodes initially.
+- [x] given multi-level nodes and the expandedByDefault is an array of IDs, when rendering the tree, then it expands the IDs, including their parent ancestry.
 
 ```jsx
 const ExpansionNodeRenderer = ({
@@ -224,8 +224,8 @@ export const ExpansionNodeRenderer = ({
 
 ## Leaf Node Selections
 
-- [ ] given multi-level nodes, when rendering the tree, then it provides the onSelect provided to the Node renderer selects marks the node as selected instead a noop toggle.
-- [ ] given multi-level nodes with some nodes as selected, when rendering the tree, then it provides each NodeRenderer with if it is selected.
+- [x] given multi-level nodes, when rendering the tree, then it provides the onSelect provided to the Node renderer selects marks the node as selected instead a noop toggle.
+- [x] given multi-level nodes with some nodes as selected, when rendering the tree, then it provides each NodeRenderer with if it is selected.
 
 ```jsx
 const ExpansionNodeRenderer = ({
