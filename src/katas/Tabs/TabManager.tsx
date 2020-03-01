@@ -4,36 +4,36 @@ import { first } from 'lodash'
 export const TabContext = createContext({})
 
 export type TabManagerProps = {
-	defaultSelected: string
+    defaultSelected: string
 }
 
 export const TabManager: FC<TabManagerProps> = ({
-	children,
-	defaultSelected,
+    children,
+    defaultSelected,
 }) => {
-	const [selectedTabId, setSelectedTabId] = useState('')
-	const [tabIndices, setTabIndices] = useState({})
-	const selectTab = (id: string) => {
-		setSelectedTabId(id)
-	}
+    const [selectedTabId, setSelectedTabId] = useState('')
+    const [tabIndices, setTabIndices] = useState({})
+    const selectTab = (id: string) => {
+        setSelectedTabId(id)
+    }
 
-	useEffect(() => {
-		const tabIds = Object.entries(tabIndices)
-		if (defaultSelected) {
-			setSelectedTabId(defaultSelected)
-		} else {
-			const defaultSelectedTab = first(tabIds)
-			if (defaultSelectedTab) {
-				setSelectedTabId(defaultSelectedTab[0])
-			}
-		}
-	}, [defaultSelected, tabIndices])
+    useEffect(() => {
+        const tabIds = Object.entries(tabIndices)
+        if (defaultSelected) {
+            setSelectedTabId(defaultSelected)
+        } else {
+            const defaultSelectedTab = first(tabIds)
+            if (defaultSelectedTab) {
+                setSelectedTabId(defaultSelectedTab[0])
+            }
+        }
+    }, [defaultSelected, tabIndices])
 
-	return (
-		<TabContext.Provider
-			value={{ selectTab, selectedTabId, setTabIndices, tabIndices }}
-		>
-			{children}
-		</TabContext.Provider>
-	)
+    return (
+        <TabContext.Provider
+            value={{ selectTab, selectedTabId, setTabIndices, tabIndices }}
+        >
+            {children}
+        </TabContext.Provider>
+    )
 }

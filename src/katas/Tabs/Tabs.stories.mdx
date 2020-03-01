@@ -34,8 +34,7 @@ const BootstrapTab = ({ selected, children, tabIndex }) => {
       style={{
         borderTop:'1px solid lightblue',
         borderRight: '1px solid lightblue',
-        borderLeft:
-          tabIndex === 0 ? '1px solid lightblue' : 'none',
+        borderLeft: tabIndex === 0 ? '1px solid lightblue' : 'none',
         borderBottom: selected ? '2px solid blue' : '2px solid rgba(0,0,0,0)',
         padding: '1rem',
       }}
@@ -62,8 +61,7 @@ export const BootstrapTab = ({ selected, children, tabIndex }) => {
       style={{
         border:'1px solid lightblue',
         borderRight: '1px solid lightblue',
-        borderLeft:
-          tabIndex === 0 ? '1px solid lightblue' : 'none',
+        borderLeft: tabIndex === 0 ? '1px solid lightblue' : 'none',
         borderBottom: 'none',
         padding: '1rem',
         position: 'relative'
@@ -119,7 +117,7 @@ export const BelowContent = ({ selected, children, tabIndex }) => {
         borderRight: '1px solid lightblue',
         borderLeft:
           tabIndex === 0 ? '1px solid lightblue' : 'none',
-    borderTop: 'none',
+        borderTop: 'none',
         padding: '1rem',
         position: 'relative'
       }}
@@ -169,9 +167,9 @@ export const VerticalTab = ({ selected, children, tabIndex }) => {
     <div
       style={{
         borderRight: selected ? '2px solid blue' : '2px solid rgba(0,0,0,0)',
+        borderTop: tabIndex > 0 ? '1px solid gray' : '1px solid rgba(0,0,0,0)',
         padding: '1rem',
         width: '100%',
-        borderTop: tabIndex > 0 ? '1px solid gray' : '1px solid rgba(0,0,0,0)',
       }}
     >
       {children}
@@ -204,69 +202,73 @@ export const VerticalTab = ({ selected, children, tabIndex }) => {
 
 ### Tabs Placement: Anywhere on Page
 
-<TabManager defaultSelected="Tab:2">
-  <SpacedGroup spacing={8}>
-    <Tabs direction={TabDirection.vertical}>
-      <Tab id="Tab:1">
-        <VerticalTab>First Tab</VerticalTab>
-      </Tab>
-      <Tab id="Tab:2">
-        <VerticalTab>Second Tab</VerticalTab>
-      </Tab>
-      <Tab id="Tab:3">
-        <VerticalTab>Third Tab</VerticalTab>
-      </Tab>
-    </Tabs>
-    <div>
-      This is content, separating the tabs and their content; because reasons.
-    </div>
-    <TabsContent>
-      <TabContent tabId="Tab:1">I am the contents of Tab:1</TabContent>
-      <TabContent tabId="Tab:2">I am the contents of Tab:2</TabContent>
-      <TabContent tabId="Tab:3">I am the contents of Tab:3</TabContent>
-    </TabsContent>
-  </SpacedGroup>
-</TabManager>
+<Preview>
+  <TabManager defaultSelected="Tab:2">
+    <SpacedGroup spacing={8}>
+      <Tabs direction={TabDirection.vertical}>
+        <Tab id="Tab:1">
+          <VerticalTab>First Tab</VerticalTab>
+        </Tab>
+        <Tab id="Tab:2">
+          <VerticalTab>Second Tab</VerticalTab>
+        </Tab>
+        <Tab id="Tab:3">
+          <VerticalTab>Third Tab</VerticalTab>
+        </Tab>
+      </Tabs>
+      <div>
+        This is content, separating the tabs and their content; because reasons.
+      </div>
+      <TabsContent>
+        <TabContent tabId="Tab:1">I am the contents of Tab:1</TabContent>
+        <TabContent tabId="Tab:2">I am the contents of Tab:2</TabContent>
+        <TabContent tabId="Tab:3">I am the contents of Tab:3</TabContent>
+      </TabsContent>
+    </SpacedGroup>
+  </TabManager>
+</Preview>
 
 ## Nesting Tabs
 
-<TabManager defaultSelected="Tab:1">
-    <div style={{borderBottom: '1px solid black'}}>
-      <Tabs>
-        <Tab id="Tab:1">
-          <BootstrapTab>Outer Tab 1</BootstrapTab>
-        </Tab>
-        <Tab id="Tab:2">
-          <BootstrapTab>Outer Tab 2</BootstrapTab>
-        </Tab>
-        <Tab id="Tab:3">
-          <BootstrapTab>Outer Tab 3</BootstrapTab>
-        </Tab>
-      </Tabs>
-    </div>
-    <TabsContent>
-      <TabContent tabId="Tab:1">
-        <TabManager>
-          <Tabs>
-            <Tab id="Tab:11">
-              <BootstrapTab>Nested Tab 1</BootstrapTab>
-            </Tab>
-            <Tab id="Tab:12">
-              <BootstrapTab>Nested Tab 2</BootstrapTab>
-            </Tab>
-            <Tab id="Tab:13">
-              <BootstrapTab>Nested Tab 3</BootstrapTab>
-            </Tab>
-          </Tabs>
-            <TabContent tabId="Tab:11">I am the content of Nested Tab 1</TabContent>
-            <TabContent tabId="Tab:12">I am the content of Nested Tab 2</TabContent>
-            <TabContent tabId="Tab:13">I am the content of Nested Tab 3</TabContent>
-        </TabManager>
-        </TabContent>
-      <TabContent tabId="Tab:2">I am the contents of Tab:2</TabContent>
-      <TabContent tabId="Tab:3">I am the contents of Tab:3</TabContent>
-    </TabsContent>
-</TabManager>
+<Preview>
+  <TabManager defaultSelected="Tab:1">
+      <div style={{borderBottom: '1px solid black'}}>
+        <Tabs>
+          <Tab id="Tab:1">
+            <BootstrapTab>Outer Tab 1</BootstrapTab>
+          </Tab>
+          <Tab id="Tab:2">
+            <BootstrapTab>Outer Tab 2</BootstrapTab>
+          </Tab>
+          <Tab id="Tab:3">
+            <BootstrapTab>Outer Tab 3</BootstrapTab>
+          </Tab>
+        </Tabs>
+      </div>
+      <TabsContent>
+        <TabContent tabId="Tab:1">
+          <TabManager>
+            <Tabs>
+              <Tab id="Tab:11">
+                <BootstrapTab>Nested Tab 1</BootstrapTab>
+              </Tab>
+              <Tab id="Tab:12">
+                <BootstrapTab>Nested Tab 2</BootstrapTab>
+              </Tab>
+              <Tab id="Tab:13">
+                <BootstrapTab>Nested Tab 3</BootstrapTab>
+              </Tab>
+            </Tabs>
+              <TabContent tabId="Tab:11">I am the content of Nested Tab 1</TabContent>
+              <TabContent tabId="Tab:12">I am the content of Nested Tab 2</TabContent>
+              <TabContent tabId="Tab:13">I am the content of Nested Tab 3</TabContent>
+          </TabManager>
+          </TabContent>
+        <TabContent tabId="Tab:2">I am the contents of Tab:2</TabContent>
+        <TabContent tabId="Tab:3">I am the contents of Tab:3</TabContent>
+      </TabsContent>
+  </TabManager>
+</Preview>
 
 
 ## Props
