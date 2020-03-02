@@ -1,4 +1,3 @@
-const createCompiler = require('@storybook/addon-docs/mdx-compiler-plugin')
 const path = require('path')
 
 module.exports = {
@@ -8,12 +7,7 @@ module.exports = {
             test: /\.tsx?$/,
             use: [
                 require.resolve('babel-loader'),
-                {
-                    loader: require.resolve('react-docgen-typescript-loader'),
-                    options: {
-                        tsconfigPath: path.resolve(__dirname, '../tsconfig.json'),
-                    },
-                },
+                require.resolve('react-docgen-typescript-loader'),
             ],
         })
         config.resolve.extensions.push('*', '.ts', '.tsx', '.mdx')
