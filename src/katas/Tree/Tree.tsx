@@ -31,7 +31,7 @@ export type TreeProps<TNode extends TreeNodeData> = {
   expandedByDefault?: Array<string> | Expand
   NodeRenderer: NodeRenderer<TNode>
   onSelectingLeaf?: (selected: Array<string>) => void
-} & typeof TreeDefaultProps
+}
 
 export function Tree<TNode extends TreeNodeData>({
   indentation,

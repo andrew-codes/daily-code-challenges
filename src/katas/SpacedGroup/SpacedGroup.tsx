@@ -6,7 +6,7 @@ import React, {
 } from 'react'
 import styled from 'styled-components'
 
-type CSSUnit = 'px' | 'rem' | 'em' | '%' | 'pt'
+export type CSSUnit = 'px' | 'rem' | 'em' | '%' | 'pt'
 const computeInnerSpacing = (spacing: number, unit: CSSUnit): string => {
   return `${spacing / 2}${unit}`
 }
@@ -24,7 +24,7 @@ const defaultProps = {
   direction: Direction.horizontal,
   unit: 'px',
 }
-type RootProps = {
+export type RootProps = {
   children: React.ReactNode
   direction?: Direction
   noGutters?: boolean
@@ -33,7 +33,7 @@ type RootProps = {
   centered?: boolean
   unit: CSSUnit
 }
-type SpacedGroupProps = {
+export type SpacedGroupProps = {
   as: ElementType | ComponentClass | StatelessComponent | FunctionComponent
 } & RootProps
 export const SpacedGroup = ({ as, ...rest }: SpacedGroupProps) => {
