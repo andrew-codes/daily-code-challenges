@@ -1,0 +1,33 @@
+import { Meta, Props, Preview } from '@storybook/addon-docs/blocks'
+import { KataLinks } from '../KataLinks'
+import { CodeBlock, Language } from './'
+import codeCode from '!!raw-loader!./CodeBlock'
+
+<Meta title="2020-03-04: CodeBlock" />
+
+# CodeBlock
+
+<KataLinks kataDirectory="CodeBlock" />
+
+## Problem
+
+Create a componenet capable of rendering a block of code with syntax highlighting enabled. This component will be used to demonstrate/show non-react code katas.
+
+### Criteria
+
+- [x] Given a string of code and the language of the code, when rendering the code, the code should be formatted and have syntax highlighting for the respective language.
+- [x] Given a string of code and the language of the code, when rendering the code, then the code is rendered; including each line's line number.
+- [x] Given a string of code and the language of the code and lines to highlight, when rendering the code, then the specified lines should be highlighted.
+
+<Preview>
+    <CodeBlock language="tsx" code={codeCode}/>
+</Preview>
+
+<CodeBlock language="tsx" code={codeCode}/>
+
+### Highlighting Lines
+
+<Preview>
+    <CodeBlock language="tsx" lines={[5]} code={codeCode}/>
+    <CodeBlock language="tsx" lines={[1,2,3,4,6]} code={codeCode}/>
+</Preview>
