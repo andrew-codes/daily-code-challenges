@@ -1,6 +1,7 @@
 import { Meta, Props, Preview } from '@storybook/addon-docs/blocks'
 import { KataHeader } from '../KataHeader'
 import { CodeBlock, Language } from './'
+import { SpacedGroup, Direction } from '../SpacedGroup'
 import codeCode from '!!raw-loader!./CodeBlock'
 
 <Meta title="2020-03-04: CodeBlock" />
@@ -17,15 +18,16 @@ Create a componenet capable of rendering a block of code with syntax highlightin
 - [x] Given a string of code and the language of the code, when rendering the code, then the code is rendered; including each line's line number.
 - [x] Given a string of code and the language of the code and lines to highlight, when rendering the code, then the specified lines should be highlighted.
 
+## Approach
+
+Because this is intended to be primarly used for non-React code katas; the use of external libraries is purposefully relaxed. Due to this, I am using the `prism-react-renderer` package. This gives me syntax highlighting via Prism, but provides a React API for rendering it; providing a tokenization of the code.
+
 <Preview>
     <CodeBlock language="tsx" code={codeCode}/>
 </Preview>
 
-<CodeBlock language="tsx" code={codeCode}/>
-
 ### Highlighting Lines
 
 <Preview>
-    <CodeBlock language="tsx" lines={[5]} code={codeCode}/>
     <CodeBlock language="tsx" lines={[1,2,3,4,6]} code={codeCode}/>
 </Preview>
