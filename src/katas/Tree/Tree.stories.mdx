@@ -1,8 +1,16 @@
 import { Meta, Props, Preview } from '@storybook/addon-docs/blocks'
 import { useState } from 'react'
 import { Tree } from './'
-import { SimpleNodeRenderer } from './SimpleNodeRenderer'
+import { SimpleNodeRenderer } from './exampleNodeRenderers/SimpleNodeRenderer'
+import simpleNodeRendererSrc from '!!raw-loader!./exampleNodeRenderers/SimpleNodeRenderer'
+import { ExpansionNodeRenderer } from './exampleNodeRenderers/ExpansionNodeRenderer'
+import expansionNodeRendererSrc from '!!raw-loader!./exampleNodeRenderers/ExpansionNodeRenderer'
+import { TrackSelectedNodes } from './exampleNodeRenderers/TrackSelectedNodes'
+import trackSelectedNodesSrc from '!!raw-loader!./exampleNodeRenderers/TrackSelectedNodes'
 import { KataHeader } from '../KataHeader'
+import { CodeBlock } from '../CodeBlock'
+import { nodes } from './exampleData'
+import nodesSrc from '!!raw-loader!./exampleData'
 
 <Meta title="2020-02-28: Tree" />
 
@@ -45,105 +53,13 @@ It is also worth mentioning that the `Tree` component does not own/control how i
 
 Example Data used in all Examples:
 
-```js
-const nodes = {
-  'Node:1': {
-    isRoot: true,
-    children: ['Node:2'],
-    name: 'node 1',
-  },
-  'Node:2': {
-    children: ['Node:3'],
-    parent: 'Node:1',
-    name: 'node 2',
-  },
-  'Node:3': {
-    children: ['Node:4'],
-    parent: 'Node:2',
-    name: 'node 3',
-  },
-  'Node:4': {
-    children: [],
-    parent: 'Node:3',
-    name: 'node 4',
-  },
-  'Node:5': {
-    isRoot: true,
-    children: ['Node:6', 'Node:7'],
-    name: 'node 5',
-  },
-  'Node:6': {
-    children: ['Node:8'],
-    parent: 'Node:5',
-    name: 'node 6',
-  },
-  'Node:7': {
-    children: [],
-    parent: 'Node:5',
-    name: 'node 7',
-  },
-  'Node:8': {
-    children: [],
-    parent: 'Node:6',
-    name: 'node 8',
-  },
-}
-```
-
-export const nodes = {
-  'Node:1': {
-    isRoot: true,
-    children: ['Node:2'],
-    name: 'node 1',
-  },
-  'Node:2': {
-    children: ['Node:3'],
-    parent: 'Node:1',
-    name: 'node 2',
-  },
-  'Node:3': {
-    children: ['Node:4'],
-    parent: 'Node:2',
-    name: 'node 3',
-  },
-  'Node:4': {
-    children: [],
-    parent: 'Node:3',
-    name: 'node 4',
-  },
-  'Node:5': {
-    isRoot: true,
-    children: ['Node:6', 'Node:7'],
-    name: 'node 5',
-  },
-  'Node:6': {
-    children: ['Node:8'],
-    parent: 'Node:5',
-    name: 'node 6',
-  },
-  'Node:7': {
-    children: [],
-    parent: 'Node:5',
-    name: 'node 7',
-  },
-  'Node:8': {
-    children: [],
-    parent: 'Node:6',
-    name: 'node 8',
-  },
-}
+<CodeBlock language="js" code={nodesSrc} />
 
 ## Rendering Nodes in Tree
 
 Example Tree Usage with a SimpleNodeRenderer:
 
-```jsx
-const SimpleNodeRenderer = ({ indentation, isLeaf, level, name }) => (
-  <div style={{ paddingLeft: `${indentation}` }}>
-      {isLeaf ? '*' : '>'} Level: {level}, {name}
-  </div>
-)
-```
+<CodeBlock language="js" code={simpleNodeRendererSrc} />
 
 <Preview>
   <Tree nodes={nodes} NodeRenderer={SimpleNodeRenderer} />
@@ -151,37 +67,7 @@ const SimpleNodeRenderer = ({ indentation, isLeaf, level, name }) => (
 
 ## Tree Expansion and Selection
 
-```jsx
-const ExpansionNodeRenderer = ({
-  expanded,
-  indentation,
-  isLeaf,
-  level,
-  name,
-  onSelect,
-}) => (
-  <div style={{ paddingLeft: `${indentation}` }} onClick={onSelect}>
-    <Typography>
-      {expanded ? '^' : isLeaf ? '*' : '>'} Level: {level}, {name}
-    </Typography>
-  </div>
-)
-```
-
-export const ExpansionNodeRenderer = ({
-  expanded,
-  indentation,
-  isLeaf,
-  level,
-  name,
-  onSelect,
-}) => (
-  <div style={{ paddingLeft: `${indentation}` }} onClick={onSelect}>
-    <Typography>
-      {expanded ? '^' : isLeaf ? '*' : '>'} Level: {level}, {name}
-    </Typography>
-  </div>
-)
+<CodeBlock language="tsx" code={expansionNodeRendererSrc} />
 
 ### Expand Node:2 and Node:6 by Default
 
@@ -205,56 +91,10 @@ export const ExpansionNodeRenderer = ({
 
 ## Leaf Node Selections
 
-```jsx
-const ExpansionNodeRenderer = ({
-  expanded,
-  indentation,
-  isLeaf,
-  level,
-  name,
-  onSelect,
-}) => (
-  <div style={{ paddingLeft: `${indentation}` }} onClick={onSelect}>
-    <Typography>
-      {expanded ? '^' : isLeaf ? '*' : '>'} Level: {level}, {name}
-    </Typography>
-  </div>
-)
-
-const TreeTrackingSelected = () => {
-  const [selected, setSelected] = useState([])
-
-  return (
-    <>
-      <h3>Selected: {selected.join(', ')}</h3>
-      <Tree
-        expandedByDefault={['Node:3', 'Node:6']}
-        NodeRenderer={ExpansionNodeRenderer}
-        nodes={nodes}
-        onSelectingLeaf={allSelected => setSelected(allSelected)}
-      />
-    </>
-  )
-}
-```
-
-export const TreeTrackingSelected = () => {
-  const [selected, setSelected] = useState([])
-  return (
-    <>
-      <h3>Selected: {selected.join(', ')}</h3>
-      <Tree
-        expandedByDefault={['Node:3', 'Node:6']}
-        NodeRenderer={ExpansionNodeRenderer}
-        nodes={nodes}
-        onSelectingLeaf={allSelected => setSelected(allSelected)}
-      />
-    </>
-  )
-}
+<CodeBlock language="tsx" code={trackSelectedNodesSrc} />
 
 <Preview>
-  <TreeTrackingSelected />
+  <TrackSelectedNodes nodes={nodes} />
 </Preview>
 
 

@@ -7,8 +7,15 @@ import {
   TabManager,
   Tabs,
 } from './'
+import { BootstrapTab } from './exampleTabs/BootstrapTab'
+import bootstrapTabSrc from '!!raw-loader!./exampleTabs/BootstrapTab'
+import { TabBelow } from './exampleTabs/TabBelow'
+import tabBelowSrc from '!!raw-loader!./exampleTabs/TabBelow'
+import { VerticalTab } from './exampleTabs/VerticalTab'
+import verticalTabSrc from '!!raw-loader!./exampleTabs/VerticalTab'
 import { SpacedGroup } from '../SpacedGroup'
 import { KataHeader } from '../KataHeader'
+import { CodeBlock }from '../CodeBlock'
 
 <Meta title="2020-02-29: Tabs" />
 
@@ -24,66 +31,9 @@ import { KataHeader } from '../KataHeader'
 - [x] A tab may be default to be selected by a tab's ID.
 - [x] Tabs may be nested within the tab content of another tab list.
 
-### ExampleTab
-
-This is the contents for each Tab to demonstrate styling it.
-
-```jsx
-const BootstrapTab = ({ selected, children, tabIndex }) => {
-  return (
-    <div
-      style={{
-        borderTop:'1px solid lightblue',
-        borderRight: '1px solid lightblue',
-        borderLeft: tabIndex === 0 ? '1px solid lightblue' : 'none',
-        borderBottom: selected ? '2px solid blue' : '2px solid rgba(0,0,0,0)',
-        padding: '1rem',
-      }}
-    >
-      {children}
-      {selected && (
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          height: '2px',
-          background: 'blue',
-          width: '100%',
-          left: 0
-         }} />
-      )}
-    </div>
-  )
-}
-```
-
-export const BootstrapTab = ({ selected, children, tabIndex }) => {
-  return (
-    <div
-      style={{
-        border:'1px solid lightblue',
-        borderRight: '1px solid lightblue',
-        borderLeft: tabIndex === 0 ? '1px solid lightblue' : 'none',
-        borderBottom: 'none',
-        padding: '1rem',
-        position: 'relative'
-      }}
-    >
-      {children}
-      {selected && (
-        <div style={{
-          position: 'absolute',
-          bottom: 0,
-          height: '2px',
-          background: 'blue',
-          width: '100%',
-          left: 0
-         }} />
-      )}
-    </div>
-  )
-}
-
 ### Tab Placement: Above Content
+
+<CodeBlock language="tsx" code={bootstrapTabSrc} />
 
 <Preview>
   <TabManager>
@@ -110,33 +60,7 @@ export const BootstrapTab = ({ selected, children, tabIndex }) => {
 
 ### Tab Placement: Below Content
 
-export const BelowContent = ({ selected, children, tabIndex }) => {
-  return (
-    <div
-      style={{
-        border:'1px solid lightblue',
-        borderRight: '1px solid lightblue',
-        borderLeft:
-          tabIndex === 0 ? '1px solid lightblue' : 'none',
-        borderTop: 'none',
-        padding: '1rem',
-        position: 'relative'
-      }}
-    >
-      {children}
-      {selected && (
-        <div style={{
-          position: 'absolute',
-          top: 0,
-          height: '2px',
-          background: 'blue',
-          width: '100%',
-          left: 0
-         }} />
-      )}
-    </div>
-  )
-}
+<CodeBlock language="tsx" code={tabBelowSrc} />
 
 <Preview>
   <TabManager>
@@ -149,13 +73,13 @@ export const BelowContent = ({ selected, children, tabIndex }) => {
     </div>
     <Tabs>
       <Tab id="Tab:1">
-        <BelowContent>First Tab</BelowContent>
+        <TabBelow>First Tab</TabBelow>
       </Tab>
       <Tab id="Tab:2">
-        <BelowContent>Second Tab</BelowContent>
+        <TabBelow>Second Tab</TabBelow>
       </Tab>
       <Tab id="Tab:3">
-        <BelowContent>Third Tab</BelowContent>
+        <TabBelow>Third Tab</TabBelow>
       </Tab>
     </Tabs>
   </TabManager>
@@ -163,20 +87,7 @@ export const BelowContent = ({ selected, children, tabIndex }) => {
 
 ### Tab Placement: Left of Content
 
-export const VerticalTab = ({ selected, children, tabIndex }) => {
-  return (
-    <div
-      style={{
-        borderRight: selected ? '2px solid blue' : '2px solid rgba(0,0,0,0)',
-        borderTop: tabIndex > 0 ? '1px solid gray' : '1px solid rgba(0,0,0,0)',
-        padding: '1rem',
-        width: '100%',
-      }}
-    >
-      {children}
-    </div>
-  )
-}
+<CodeBlock language="tsx" code={verticalTabSrc} />
 
 <Preview>
   <TabManager>
