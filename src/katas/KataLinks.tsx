@@ -12,6 +12,7 @@ export type KataLinkProps = {
 
 export const KataLinks: FC<KataLinkProps> = ({ kataDirectory }) => (
     <SpacedGroup spacing={16} direction={Direction.vertical}>
-        <Link title="View Code on GitHub" href={`https://github.com/andrew-codes/daily-code-challenges/tree/master/src/katas/${kataDirectory}`}>View the Code on GitHub</Link>
+        <Link href="https://andrew.codes">Connect with me</Link>
+        <Link href={`https://github.com/andrew-codes/daily-code-challenges/tree/master/src/katas/${kataDirectory}`}>View the code on GitHub</Link>
     </SpacedGroup>
 )
