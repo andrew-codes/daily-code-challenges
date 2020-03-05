@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { constant, cond, every, get, flow, some, stubFalse, stubTrue, tap } from 'lodash/fp'
-import { Function, Keyword, ModuleKeyword, Number, Operator, Plain, Punctuation, SpreadPunctuation, String } from './TokenComponents'
+import { Green, Cyan, Red, Purple, Plain, LightGray, Orange, Yellow } from './TokenComponents'
 
 
 type Token = {
@@ -101,6 +101,14 @@ const isReactType: TokenOperand = flow([
     get('content'),
     content => ['FC'].includes(content)
 ])
+const isNullOrUndefinedKeywords: TokenOperand = flow([
+    get('content'),
+    content => ['null', 'undefined'].includes(content)
+])
+const isInterpolation: TokenOperand = flow([
+    get('types'),
+    some(type => type === 'interpolation')
+])
 const isReactElement = and(isTag, isClassName)
 
 const isModuleKeyword: TokenOperand = and(isKeyword, isModule)
@@ -108,29 +116,31 @@ const isModuleKeyword: TokenOperand = and(isKeyword, isModule)
 export const getTokenComponent: TokenToComponent = flow([
     tap(console.log),
     cond([
-        [isModuleKeyword, constant(ModuleKeyword)],
-        [isNumber, constant(Number)],
-        [isTemplatePunctuation, constant(ModuleKeyword)],
-        [isBuiltIn, constant(Keyword)],
-        [isKnown, constant(Keyword)],
-        [isReactType, constant(Keyword)],
-        [isNumberType, constant(Keyword)],
-        [isParameter, constant(SpreadPunctuation)],
-        [isString, constant(String)],
-        [isTemplateString, constant(String)],
-        [isConstant, constant(Number)],
-        [isMaybeClassName, constant(Number)],
-        [isKeyword, constant(Keyword)],
-        [isFunction, constant(Function)],
-        [isReactElement, constant(ModuleKeyword)],
-        [and(isTag, isPunctuation), constant(Punctuation)],
-        [isOperator, constant(Operator)],
+        [isModuleKeyword, constant(Red)],
+        [isNumber, constant(Purple)],
+        [isTemplatePunctuation, constant(Red)],
+        [isNullOrUndefinedKeywords, constant(Purple)],
+        [isBuiltIn, constant(Cyan)],
+        [isKnown, constant(Cyan)],
+        [isReactType, constant(Cyan)],
+        [isNumberType, constant(Cyan)],
+        [and(isInterpolation, isPunctuation), constant(LightGray)],
+        [isParameter, constant(Orange)],
+        [isString, constant(Yellow)],
+        [isTemplateString, constant(Yellow)],
+        [isConstant, constant(Purple)],
+        [isMaybeClassName, constant(Purple)],
+        [isKeyword, constant(Cyan)],
+        [isFunction, constant(Green)],
+        [isReactElement, constant(Red)],
+        [and(isTag, isPunctuation), constant(LightGray)],
+        [isOperator, constant(Red)],
         [isAttrValue, constant(Plain)],
-        [isAttrName, constant(Keyword)],
-        [and(isTag, isPunctuation), constant(ModuleKeyword)],
-        [isSpread, constant(ModuleKeyword)],
-        [and(isPunctuation, isSpread), constant(SpreadPunctuation)],
-        [isPunctuation, constant(Punctuation)],
+        [isAttrName, constant(Cyan)],
+        [and(isTag, isPunctuation), constant(Red)],
+        [isSpread, constant(Red)],
+        [and(isPunctuation, isSpread), constant(Orange)],
+        [isPunctuation, constant(LightGray)],
         [stubTrue, constant(Plain)]
     ])
 ])
