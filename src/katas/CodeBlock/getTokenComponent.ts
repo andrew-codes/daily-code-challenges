@@ -125,6 +125,7 @@ export const getTokenComponent: TokenToComponent = flow([
         [isReactType, constant(Cyan)],
         [isNumberType, constant(Cyan)],
         [and(isInterpolation, isPunctuation), constant(LightGray)],
+        [and(isParameter, isPunctuation), constant(LightGray)],
         [isParameter, constant(Orange)],
         [isString, constant(Yellow)],
         [isTemplateString, constant(Yellow)],
