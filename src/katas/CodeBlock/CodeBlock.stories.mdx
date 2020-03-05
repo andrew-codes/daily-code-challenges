@@ -3,6 +3,7 @@ import { KataHeader } from '../KataHeader'
 import { CodeBlock, Language } from './'
 import { SpacedGroup, Direction } from '../SpacedGroup'
 import codeCode from '!!raw-loader!./CodeBlock'
+import getTokenComponentSrc from '!!raw-loader!./getTokenComponent'
 
 <Meta title="2020-03-04: CodeBlock" />
 
@@ -26,8 +27,14 @@ Because this is intended to be primarly used for non-React code katas; the use o
     <CodeBlock language="tsx" code={codeCode}/>
 </Preview>
 
-### Highlighting Lines
+## Highlighting Lines
 
 <Preview>
     <CodeBlock language="tsx" lines={[1,2,3,4,6]} code={codeCode}/>
 </Preview>
+
+## Styling
+
+Tokens are mapped to components:
+
+<CodeBlock language="tsx" code={getTokenComponentSrc} />
