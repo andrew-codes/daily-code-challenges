@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { constant, cond, every, get, flow, some, stubFalse, stubTrue, tap } from 'lodash/fp'
+import { constant, cond, every, get, flow, some, stubFalse, stubTrue } from 'lodash/fp'
 import { Green, Cyan, Red, Purple, Plain, LightGray, Orange, Yellow } from './TokenComponents'
 
 
@@ -114,7 +114,6 @@ const isReactElement = and(isTag, isClassName)
 const isModuleKeyword: TokenOperand = and(isKeyword, isModule)
 
 export const getTokenComponent: TokenToComponent = flow([
-    tap(console.log),
     cond([
         [isModuleKeyword, constant(Red)],
         [isNumber, constant(Purple)],
