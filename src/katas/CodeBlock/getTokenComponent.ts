@@ -16,14 +16,22 @@ const and = (...operands: Array<TokenOperand>): TokenOperand => flow([
         [stubTrue, stubFalse]
     ])
 ])
+const not = flow([
+    op => (flow([
+        cond([
+            [op, stubFalse],
+            [stubTrue, stubTrue]
+        ])
+    ]))
+])
 
 const isKeyword: TokenOperand = flow([
     get('types'),
     some(type => type === 'keyword')
 ])
-const isModule: TokenOperand = flow([
+const isSpecialKeyword: TokenOperand = flow([
     get('content'),
-    content => ['import', 'export', 'from'].includes(content)
+    content => ['import', 'export', 'from', 'return'].includes(content)
 ])
 const isFunction: TokenOperand = flow([
     get('types'),
@@ -109,9 +117,13 @@ const isInterpolation: TokenOperand = flow([
     get('types'),
     some(type => type === 'interpolation')
 ])
+const isScript: TokenOperand = flow([
+    get('types'),
+    some(type => type === 'script')
+])
 const isReactElement = and(isTag, isClassName)
 
-const isModuleKeyword: TokenOperand = and(isKeyword, isModule)
+const isModuleKeyword: TokenOperand = and(isKeyword, isSpecialKeyword)
 
 export const getTokenComponent: TokenToComponent = flow([
     cond([
@@ -141,6 +153,7 @@ export const getTokenComponent: TokenToComponent = flow([
         [isSpread, constant(Red)],
         [and(isPunctuation, isSpread), constant(Orange)],
         [isPunctuation, constant(LightGray)],
-        [stubTrue, constant(Plain)]
+        [and(isTag, not(isScript)), constant(Red)],
+        [stubTrue, constant(Plain)],
     ])
 ])
