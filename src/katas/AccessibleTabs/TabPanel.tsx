@@ -8,7 +8,7 @@ export const TabPanel: FC<TabContentProps> = ({ children, tabId }) => {
     const { selectedTabId } = useContext(TabContext)
 
     return (
-        <div aria-labelledby={tabId} hidden={selectedTabId !== tabId} id={`${tabId}-tabpanel`} role="tabpanel">
+        <div aria-labelledby={tabId} hidden={selectedTabId !== tabId} id={`${tabId}-tabpanel`} role="tabpanel" tabIndex={0}>
             {children}
         </div>
     )

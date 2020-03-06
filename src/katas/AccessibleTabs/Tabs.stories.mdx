@@ -55,10 +55,10 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
 
 #### Keyboard interactions
 
-- [ ] Given the immediately previous focusable element is focused, when tabbing forward, then the first tab becomes focused.
-- [ ] Given a tab is active, when tabbing to the next element, then focus is moved to the tab panel.
-- [ ] Given a tab is active and the panel is focused, when tabbing to the next element, then focus is moved to next focusable element in the active tab.
-- [ ] Given a tab is active and the panel is focused and there are no focusable elements in the active tab panel, when tabbing to the next element, then focus is moved to next focusable element outside the tab panels.
+- [x] Given the immediately previous focusable element is focused, when tabbing forward, then the active becomes focused.
+- [x] Given a tab is active, when tabbing to the next element, then focus is moved to the tab panel.
+- [x] Given a tab is active and the panel is focused, when tabbing to the next element, then focus is moved to next focusable element in the active tab.
+- [x] Given a tab is active and the panel is focused and there are no focusable elements in the active tab panel, when tabbing to the next element, then focus is moved to next focusable element outside the tab panels.
 - [ ] Given a tab is active and the tabs are horizontal, when using the left and right arrow keys, then the focus is cycled to the next/previous tab in the tab list.
 - [ ] Given a tab is active and the tabs are vertical, when using the left and right arrow keys, then they maintain their default behavior (srolls up/down page).
 - [ ] Given a tab is active and the tabs are vertical, when using the up and down arrow keys, then the focus is cycled to the next/previous tab in the tab list.
@@ -85,7 +85,7 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
       </Tab>
     </Tabs>
     <TabPanels>
-      <TabPanel tabId="Tab:1">I am the contents of Tab:1</TabPanel>
+      <TabPanel tabId="Tab:1">I am the contents of Tab:1 <button>focus me</button></TabPanel>
       <TabPanel tabId="Tab:2">I am the contents of Tab:2</TabPanel>
       <TabPanel tabId="Tab:3">I am the contents of Tab:3</TabPanel>
     </TabPanels>

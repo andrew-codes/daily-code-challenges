@@ -20,10 +20,10 @@ export const TabManager: FC<TabManagerProps> = ({
     }
 
     useEffect(() => {
-        const tabIds = Object.entries(tabIndices)
         if (defaultSelected) {
             setSelectedTabId(defaultSelected)
         } else {
+            const tabIds = Object.entries(tabIndices)
             const defaultSelectedTab = first(tabIds)
             if (defaultSelectedTab) {
                 setSelectedTabId(defaultSelectedTab[0])

@@ -33,7 +33,16 @@ export const Tab: FC<TabProps> = ({ children, id }) => {
     )
 
     return (
-        <NoStylesButton direction={direction} aria-controls={`${id}-tabpanel`} aria-selected={id === selectedTabId} role="tab" type="button" onClick={() => selectTab(id)} id={id}>
+        <NoStylesButton
+            aria-controls={`${id}-tabpanel`}
+            aria-selected={id === selectedTabId}
+            direction={direction}
+            id={id}
+            onClick={() => selectTab(id)}
+            role="tab"
+            tabIndex={selectedTabId !== id ? -1 : undefined}
+            type="button"
+        >
             {tabAwareChildren}
         </NoStylesButton>
     )

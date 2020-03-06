@@ -23,7 +23,7 @@ export type TabsProps = {
 } & typeof defaultProps
 
 export const Tabs: FC<TabsProps> = ({ children, direction, label }) => {
-    const { setDirection, selectTab, setTabIndices } = useContext(TabContext)
+    const { setDirection, selectTab, selectedTabId, setTabIndices, tabIndices } = useContext(TabContext)
 
     useEffect(() => {
         const tabIndices = React.Children.toArray(children).reduce(
@@ -37,10 +37,41 @@ export const Tabs: FC<TabsProps> = ({ children, direction, label }) => {
         setDirection(direction)
     }, [direction, setDirection])
 
+    const getPreviousTab = (id) => {
+        const tabIndex = tabIndices[id]
+        let index
+        if (tabIndex - 1 < 0) {
+            index = Object.keys(tabIndices).length - 1
+        }
+        index = tabIndex - 1
+        return Object.keys(tabIndices)[index]
+    }
+    const getNextTab = (id) => {
+        const tabIndex = tabIndices[id]
+        let index
+        if (tabIndex + 1 > Object.keys(tabIndices).length - 1) {
+            index = 0
+        }
+        index = tabIndex + 1
+        return Object.keys(tabIndices)[index]
+    }
+
+    const handleKeyUp = evt => {
+        console.log(evt.keyCode)
+        if (direction === TabDirection.horizontal) {
+            if (evt.keyCode === 39) {
+                selectTab(getNextTab(selectedTabId))
+            } else if (evt.keyCode === 37) {
+                selectTab(getPreviousTab(selectedTabId))
+            }
+        }
+    }
+
+
     return (
         <SpacedGroup
             aria-orientation={direction}
-            as={(props) => <div {...props} role="tablist" aria-label={label} />}
+            as={(props) => <div {...props} onKeyUp={handleKeyUp} role="tablist" aria-label={label} />}
             centered
             spacing={0}
             direction={
