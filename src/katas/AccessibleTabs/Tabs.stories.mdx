@@ -2,8 +2,8 @@ import { Meta, Props, Preview } from '@storybook/addon-docs/blocks'
 import {
   TabDirection,
   Tab,
-  TabContent,
-  TabsContent,
+  TabPanel,
+  TabPanels,
   TabManager,
   Tabs,
 } from './'
@@ -29,7 +29,7 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
 
 - [x] A set of tabs may have a layout may of vertical or horizontal.
 - [x] Tabs are rendered independetly from their respective TabContent; i.e. a tab's content can be rendered anywhere on the page (not specific to being under/above/left/right of the Tabs).
-- [x] Only the currently active tab's correspoind TabBody is displayed within the TabsContent.
+- [x] Only the currently active tab's correspoind TabBody is displayed within the `TabPanels`.
 - [x] The tab's index, and whether it is currently selected is provided to each of the `Tab` components' children.
 - [x] Defaults to the first tab being selected/
 - [x] A tab may be default to be selected by a tab's ID.
@@ -39,19 +39,19 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
 
 #### ARIA Roles, States and Properties
 
-- [ ] The list of tabs has the "tablist" `role` attribute.
-- [ ] Tab list contains an `aria-label` attribute set to the subject matter of the tabs.
-- [ ] Each tab is a button element.
-- [ ] Each tab has the "tab" `role` attribute.
-- [ ] Each tab has an `ID` attribute.
-- [ ] Each tab has an `aria-controls` attribute which is set to the `ID` of its associated tab panel.
-- [ ] Each non-active tab is set to`aria-selected=false`.
-- [ ] The currently active tab is set to`aria-selected=true`.
-- [ ] Each tab panel has the "tabpanel" `role` attribute.
-- [ ] Each tab panel has an `ID` attribute.
-- [ ] Each tab panel has an `aria-labeledby` attribute set to the asscociated tab's `ID`.
-- [ ] Each non-active tab panel is rendered to the screen and hidden via the `hidden="hidden"` attrbiute.
-- [ ] Vertical tabs have an `aria-orientation` set to vertical.
+- [x] The list of tabs has the "tablist" `role` attribute.
+- [x] Tab list contains an `aria-label` attribute set to the subject matter of the tabs.
+- [x] Each tab is a button element.
+- [x] Each tab has the "tab" `role` attribute.
+- [x] Each tab has an `ID` attribute.
+- [x] Each tab has an `aria-controls` attribute which is set to the `ID` of its associated tab panel.
+- [x] Each non-active tab is set to`aria-selected=false`.
+- [x] The currently active tab is set to`aria-selected=true`.
+- [x] Each tab panel has the "tabpanel" `role` attribute.
+- [x] Each tab panel has an `ID` attribute.
+- [x] Each tab panel has an `aria-labeledby` attribute set to the asscociated tab's `ID`.
+- [x] Each non-active tab panel is rendered to the screen and hidden via the `hidden="hidden"` attrbiute.
+- [x] Vertical tabs have an `aria-orientation` set to vertical.
 
 #### Keyboard interactions
 
@@ -84,11 +84,11 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
         <BootstrapTab>Third Tab</BootstrapTab>
       </Tab>
     </Tabs>
-    <TabsContent>
-      <TabContent tabId="Tab:1">I am the contents of Tab:1</TabContent>
-      <TabContent tabId="Tab:2">I am the contents of Tab:2</TabContent>
-      <TabContent tabId="Tab:3">I am the contents of Tab:3</TabContent>
-    </TabsContent>
+    <TabPanels>
+      <TabPanel tabId="Tab:1">I am the contents of Tab:1</TabPanel>
+      <TabPanel tabId="Tab:2">I am the contents of Tab:2</TabPanel>
+      <TabPanel tabId="Tab:3">I am the contents of Tab:3</TabPanel>
+    </TabPanels>
   </TabManager>
 </Preview>
 
@@ -110,11 +110,11 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
           <VerticalTab>Third Tab</VerticalTab>
         </Tab>
       </Tabs>
-      <TabsContent>
-        <TabContent tabId="Tab:1">I am the contents of Tab:1</TabContent>
-        <TabContent tabId="Tab:2">I am the contents of Tab:2</TabContent>
-        <TabContent tabId="Tab:3">I am the contents of Tab:3</TabContent>
-      </TabsContent>
+      <TabPanels>
+        <TabPanel tabId="Tab:1">I am the contents of Tab:1</TabPanel>
+        <TabPanel tabId="Tab:2">I am the contents of Tab:2</TabPanel>
+        <TabPanel tabId="Tab:3">I am the contents of Tab:3</TabPanel>
+      </TabPanels>
     </SpacedGroup>
   </TabManager>
 </Preview>
@@ -136,8 +136,8 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
           </Tab>
         </Tabs>
       </div>
-      <TabsContent>
-        <TabContent tabId="Tab:1">
+      <TabPanels>
+        <TabPanel tabId="Tab:1">
           <TabManager>
             <Tabs>
               <Tab id="Tab:11">
@@ -150,14 +150,14 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
                 <BootstrapTab>Nested Tab 3</BootstrapTab>
               </Tab>
             </Tabs>
-              <TabContent tabId="Tab:11">I am the content of Nested Tab 1</TabContent>
-              <TabContent tabId="Tab:12">I am the content of Nested Tab 2</TabContent>
-              <TabContent tabId="Tab:13">I am the content of Nested Tab 3</TabContent>
+              <TabPanel tabId="Tab:11">I am the content of Nested Tab 1</TabPanel>
+              <TabPanel tabId="Tab:12">I am the content of Nested Tab 2</TabPanel>
+              <TabPanel tabId="Tab:13">I am the content of Nested Tab 3</TabPanel>
           </TabManager>
-          </TabContent>
-        <TabContent tabId="Tab:2">I am the contents of Tab:2</TabContent>
-        <TabContent tabId="Tab:3">I am the contents of Tab:3</TabContent>
-      </TabsContent>
+          </TabPanel>
+        <TabPanel tabId="Tab:2">I am the contents of Tab:2</TabPanel>
+        <TabPanel tabId="Tab:3">I am the contents of Tab:3</TabPanel>
+      </TabPanels>
   </TabManager>
 </Preview>
 
@@ -211,10 +211,10 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
   </tbody>
 </table>
 
-### TabsContent
+### TabPanels
 
-<Props of={TabsContent} />
+<Props of={TabPanels} />
 
-### TabContent
+### TabPanel
 
-<Props of={TabContent} />
+<Props of={TabPanel} />

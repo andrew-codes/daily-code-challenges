@@ -1,5 +1,6 @@
 import React, { FC, createContext, useState, useEffect } from 'react'
 import { first } from 'lodash'
+import { TabDirection } from './Tabs'
 
 export const TabContext = createContext({})
 
@@ -12,6 +13,7 @@ export const TabManager: FC<TabManagerProps> = ({
     defaultSelected,
 }) => {
     const [selectedTabId, setSelectedTabId] = useState('')
+    const [direction, setDirection] = useState(TabDirection.horizontal)
     const [tabIndices, setTabIndices] = useState({})
     const selectTab = (id: string) => {
         setSelectedTabId(id)
@@ -31,7 +33,7 @@ export const TabManager: FC<TabManagerProps> = ({
 
     return (
         <TabContext.Provider
-            value={{ selectTab, selectedTabId, setTabIndices, tabIndices }}
+            value={{ direction, setDirection, selectTab, selectedTabId, setTabIndices, tabIndices }}
         >
             {children}
         </TabContext.Provider>

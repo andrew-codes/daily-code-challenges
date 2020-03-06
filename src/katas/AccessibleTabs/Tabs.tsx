@@ -23,7 +23,7 @@ export type TabsProps = {
 } & typeof defaultProps
 
 export const Tabs: FC<TabsProps> = ({ children, direction, label }) => {
-    const { selectTab, setTabIndices } = useContext(TabContext)
+    const { setDirection, selectTab, setTabIndices } = useContext(TabContext)
 
     useEffect(() => {
         const tabIndices = React.Children.toArray(children).reduce(
@@ -33,8 +33,13 @@ export const Tabs: FC<TabsProps> = ({ children, direction, label }) => {
         setTabIndices(tabIndices)
     }, [React.Children.toArray(children).length, setTabIndices])
 
+    useEffect(() => {
+        setDirection(direction)
+    }, [direction, setDirection])
+
     return (
         <SpacedGroup
+            aria-orientation={direction}
             as={(props) => <div {...props} role="tablist" aria-label={label} />}
             centered
             spacing={0}
@@ -44,11 +49,7 @@ export const Tabs: FC<TabsProps> = ({ children, direction, label }) => {
                     : Direction.vertical
             }
         >
-            {React.Children.map(children, (child) => (
-                <TabsRoot direction={direction} onClick={() => selectTab(child.props.id)}>
-                    {child}
-                </TabsRoot>
-            ))}
+            {children}
         </SpacedGroup>
     )
 }
