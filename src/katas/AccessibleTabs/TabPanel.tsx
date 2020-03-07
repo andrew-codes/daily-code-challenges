@@ -3,7 +3,7 @@ import { TabContext } from './TabManager'
 import styled from 'styled-components'
 
 const Root = styled.div`
-    display: ${({ hidden }) => hidden ? 'none' : undefined};
+    display: ${({ hidden }) => hidden ? 'none' : undefined} !important;
 `
 
 export type TabContentProps = {

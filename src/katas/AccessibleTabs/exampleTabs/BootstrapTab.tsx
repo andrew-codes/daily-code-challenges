@@ -1,7 +1,7 @@
 
 import React from 'react'
 
-export const BootstrapTab = ({ selected, children, tabIndex }) => {
+export const BootstrapTab = ({ active, selected, children, tabIndex }) => {
     return (
         <div
             style={{
@@ -14,12 +14,12 @@ export const BootstrapTab = ({ selected, children, tabIndex }) => {
             }}
         >
             {children}
-            {selected && (
+            {(selected || active) && (
                 <div style={{
                     position: 'absolute',
                     bottom: 0,
                     height: '2px',
-                    background: 'blue',
+                    background: active ? 'orange' : 'blue',
                     width: '100%',
                     left: 0
                 }} />

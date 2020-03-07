@@ -4,11 +4,16 @@ import { TabDirection } from './Tabs'
 
 export const TabContext = createContext({})
 
+const defaultProps = {
+    autoSelect: false,
+}
 export type TabManagerProps = {
     defaultSelected: string
-}
+    autoSelect?: boolean
+} & typeof defaultProps
 
 export const TabManager: FC<TabManagerProps> = ({
+    autoSelect,
     children,
     defaultSelected,
 }) => {
@@ -16,8 +21,21 @@ export const TabManager: FC<TabManagerProps> = ({
     const [activeTabId, setActiveTabId] = useState('')
     const [direction, setDirection] = useState(TabDirection.horizontal)
     const [tabIndices, setTabIndices] = useState({})
+
     const selectTab = (id: string) => {
         setSelectedTabId(id)
+        setActiveTabId(id)
+    }
+
+    const setActiveTab = (id: string) => {
+        if (autoSelect) {
+            selectTab(id)
+        }
+        setActiveTabId(id)
+    }
+
+    const clearActiveTab = () => {
+        setActiveTabId('')
     }
 
     useEffect(() => {
@@ -36,10 +54,11 @@ export const TabManager: FC<TabManagerProps> = ({
         <TabContext.Provider
             value={{
                 activeTabId,
+                clearActiveTab,
                 direction,
                 selectedTabId,
                 selectTab,
-                setActiveTabId,
+                setActiveTab,
                 setDirection,
                 setTabIndices,
                 tabIndices,
@@ -49,3 +68,4 @@ export const TabManager: FC<TabManagerProps> = ({
         </TabContext.Provider>
     )
 }
+TabManager.defaultProps = defaultProps

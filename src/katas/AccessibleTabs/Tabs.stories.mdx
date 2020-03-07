@@ -45,27 +45,27 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
 - [x] Each tab has the "tab" `role` attribute.
 - [x] Each tab has an `ID` attribute.
 - [x] Each tab has an `aria-controls` attribute which is set to the `ID` of its associated tab panel.
-- [x] Each non-active tab is set to`aria-selected=false`.
-- [x] The currently active tab is set to`aria-selected=true`.
+- [x] Each non-selected tab is set to`aria-selected=false`.
+- [x] The currently selected tab is set to`aria-selected=true`.
 - [x] Each tab panel has the "tabpanel" `role` attribute.
 - [x] Each tab panel has an `ID` attribute.
 - [x] Each tab panel has an `aria-labeledby` attribute set to the associated tab's `ID`.
-- [x] Each non-active tab panel is rendered to the screen and hidden via the `hidden="hidden"` attribute.
+- [x] Each non-selected tab panel is rendered to the screen and hidden via the `hidden="hidden"` attribute.
 - [x] Vertical tabs have an `aria-orientation` set to vertical.
 
 #### Keyboard interactions
 
-- [x] Given the immediately previous focusable element is focused, when tabbing forward, then the active tab becomes focused.
-- [x] Given a tab is active, when tabbing to the next element, then focus is moved to the tab panel.
-- [x] Given a tab is active, and the panel is focused, when tabbing to the next element, then focus is moved to the next focusable element in the selected tab panel.
-- [x] Given a tab is active, and the panel is focused, and there are no focusable elements in the selected tab panel, when tabbing to the next element, then focus is moved to next focusable element outside the tab panels.
-- [x] Given a tab is active, and the tabs are horizontal, when using the left, and right arrow keys, then the focus is cycled to the next/previous tab in the tab list.
-- [x] Given a tab is active, and the tabs are vertical, when using the up, and down arrow keys, then the focus is cycled to the next/previous tab in the tab list.
-- [x] Given a tab is active, and the tabs are vertical, when using the left, and right arrow keys, then they maintain their default behavior (scrolls up/down page).
-- [ ] Given my tabs are not automatically activated, and a tab is active, and I move focus to a new tab, when using the Space or Enter keys, then the focused tab's tab panel becomes selected.
-- [ ] Given a tab is active, and the tabs' activation is considered automatic, when using the navigating to other tabs, then the act of navigating to a new tab also selects the tab panel.
-- [ ] Given a tab is active, when using the Home key, then the first tab becomes focused.
-- [ ] Given a tab is active, when using the End key, then the last tab becomes focused.
+- [x] Given the immediately previous focusable element is focused, when tabbing forward, then the selected tab becomes focused.
+- [x] Given a tab is selected and focused, when tabbing to the next element, then focus is moved to the tab panel.
+- [x] Given a tab is selected, and the panel is focused, when tabbing to the next element, then focus is moved to the next focusable element in the selected tab panel.
+- [x] Given a tab is selected, and the panel is focused, and there are no focusable elements in the selected tab panel, when tabbing to the next element, then focus is moved to next focusable element outside the tab panels.
+- [x] Given a tab is selected, and the tabs are horizontal, when using the left, and right arrow keys, then the focus is cycled to the next/previous tab in the tab list.
+- [x] Given a tab is selected, and the tabs are vertical, when using the up, and down arrow keys, then the focus is cycled to the next/previous tab in the tab list.
+- [x] Given a tab is selected, and the tabs are vertical, when using the left, and right arrow keys, then they maintain their default behavior (scrolls up/down page).
+- [x] Given the tabs are not automatically selected, and a non-selected tab is focused, when using the Space or Enter keys, then the focused tab's tab panel becomes selected.
+- [ ] Given the tabs are automatically selected, when navigating to other tabs, then the act of navigating to a new tab also marks the tab as selected.
+- [ ] Given a tab is focused, when using the Home key, then the first tab becomes focused.
+- [ ] Given a tab is focused, when using the End key, then the last tab becomes focused.
 
 ### Horizontal Tabs
 
