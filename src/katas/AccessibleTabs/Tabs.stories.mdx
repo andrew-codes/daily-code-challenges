@@ -23,16 +23,16 @@ import { CodeBlock }from '../CodeBlock'
 
 ## Problem
 
-While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata does function correctly, it does not follow accessbility guidelines for tablists; per the [WAI-ARIA 1.1](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel). Create a component(s) for creating tabs that follow these guidelines; including keyboard interactions and ARIA labels for roles, states, and properties.
+While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata does function correctly, it does not follow accessibility guidelines for tablists; per the [WAI-ARIA 1.1](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel). Create a component(s) for creating tabs that follow these guidelines; including keyboard interactions and ARIA labels for roles, states, and properties.
 
 ### Original Requirements
 
 - [x] A set of tabs may have a layout may of vertical or horizontal.
-- [x] Tabs are rendered independetly from their respective TabContent; i.e. a tab's content can be rendered anywhere on the page (not specific to being under/above/left/right of the Tabs).
-- [x] Only the currently active tab's correspoind TabBody is displayed within the `TabPanels`.
+- [x] Tabs are rendered independently from their respective TabContent; i.e. a tab's content can be rendered anywhere on the page (not specific to being under/above/left/right of the Tabs).
+- [x] Only the currently active tab's corresponding TabBody is displayed within the `TabPanels`.
 - [x] The tab's index, and whether it is currently selected is provided to each of the `Tab` components' children.
 - [x] Defaults to the first tab being selected/
-- [x] A tab may be default to be selected by a tab's ID.
+- [x] A tab may default to be selected by a tab's ID.
 - [x] Tabs may be nested within the tab content of another tab list.
 
 ### Additional Accessbility Requirements
@@ -49,23 +49,23 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
 - [x] The currently active tab is set to`aria-selected=true`.
 - [x] Each tab panel has the "tabpanel" `role` attribute.
 - [x] Each tab panel has an `ID` attribute.
-- [x] Each tab panel has an `aria-labeledby` attribute set to the asscociated tab's `ID`.
-- [x] Each non-active tab panel is rendered to the screen and hidden via the `hidden="hidden"` attrbiute.
+- [x] Each tab panel has an `aria-labeledby` attribute set to the associated tab's `ID`.
+- [x] Each non-active tab panel is rendered to the screen and hidden via the `hidden="hidden"` attribute.
 - [x] Vertical tabs have an `aria-orientation` set to vertical.
 
 #### Keyboard interactions
 
-- [x] Given the immediately previous focusable element is focused, when tabbing forward, then the active becomes focused.
+- [x] Given the immediately previous focusable element is focused, when tabbing forward, then the active tab becomes focused.
 - [x] Given a tab is active, when tabbing to the next element, then focus is moved to the tab panel.
-- [x] Given a tab is active and the panel is focused, when tabbing to the next element, then focus is moved to next focusable element in the active tab.
+- [x] Given a tab is active and the panel is focused, when tabbing to the next element, then focus is moved to the next focusable element in the active tab.
 - [x] Given a tab is active and the panel is focused and there are no focusable elements in the active tab panel, when tabbing to the next element, then focus is moved to next focusable element outside the tab panels.
 - [ ] Given a tab is active and the tabs are horizontal, when using the left and right arrow keys, then the focus is cycled to the next/previous tab in the tab list.
-- [ ] Given a tab is active and the tabs are vertical, when using the left and right arrow keys, then they maintain their default behavior (srolls up/down page).
+- [ ] Given a tab is active and the tabs are vertical, when using the left and right arrow keys, then they maintain their default behavior (scrolls up/down page).
 - [ ] Given a tab is active and the tabs are vertical, when using the up and down arrow keys, then the focus is cycled to the next/previous tab in the tab list.
 - [ ] Given a tab is active and I move focus to a new tab, when using the Space or Enter keys, then the focused tab's tab panel becomes active.
 - [ ] Given a tab is active and the tabs' activation is considered automatic, when using the navigating to other tabs, then the act of navigating to a new tab also actives the tab panel.
-- [ ] Given a tab is active, when using Home key, the the first tab becomes focused.
-- [ ] Given a tab is active, when using End key, the the first last becomes focused.
+- [ ] Given a tab is active, when using the Home key, then the first tab becomes focused.
+- [ ] Given a tab is active, when using the End key, then the last tab becomes focused.
 
 ### Horizontal Tabs
 
