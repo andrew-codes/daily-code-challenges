@@ -1,5 +1,10 @@
 import React, { FC, useContext } from 'react'
 import { TabContext } from './TabManager'
+import styled from 'styled-components'
+
+const Root = styled.div`
+    display: ${({ hidden }) => hidden ? 'none' : undefined};
+`
 
 export type TabContentProps = {
     tabId: string
@@ -8,8 +13,8 @@ export const TabPanel: FC<TabContentProps> = ({ children, tabId }) => {
     const { selectedTabId } = useContext(TabContext)
 
     return (
-        <div aria-labelledby={tabId} hidden={selectedTabId !== tabId} id={`${tabId}-tabpanel`} role="tabpanel" tabIndex={0}>
+        <Root aria-labelledby={tabId} hidden={selectedTabId !== tabId} id={`${tabId}-tabpanel`} role="tabpanel" tabIndex={0}>
             {children}
-        </div>
+        </Root>
     )
 }

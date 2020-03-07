@@ -13,6 +13,7 @@ export const TabManager: FC<TabManagerProps> = ({
     defaultSelected,
 }) => {
     const [selectedTabId, setSelectedTabId] = useState('')
+    const [activeTabId, setActiveTabId] = useState('')
     const [direction, setDirection] = useState(TabDirection.horizontal)
     const [tabIndices, setTabIndices] = useState({})
     const selectTab = (id: string) => {
@@ -33,7 +34,16 @@ export const TabManager: FC<TabManagerProps> = ({
 
     return (
         <TabContext.Provider
-            value={{ direction, setDirection, selectTab, selectedTabId, setTabIndices, tabIndices }}
+            value={{
+                activeTabId,
+                direction,
+                selectedTabId,
+                selectTab,
+                setActiveTabId,
+                setDirection,
+                setTabIndices,
+                tabIndices,
+            }}
         >
             {children}
         </TabContext.Provider>
