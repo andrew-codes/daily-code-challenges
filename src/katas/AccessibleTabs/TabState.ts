@@ -9,6 +9,7 @@ export type TabState = {
     tabs: Array<string>,
 }
 export enum TabActionTypes {
+    'activateTabAtIndex' = 'activateTabAtIndex',
     'clearActiveTab' = 'clearActiveTab',
     'selectTab' = 'selectTab',
     'setActiveTab' = 'setActiveTab',
@@ -34,6 +35,10 @@ export type SelectTabAction = {
     type: TabActionTypes.selectTab | TabActionTypes.setNextTabAsActive | TabActionTypes.setPreviousTabAsActive,
     payload: string
 }
+export type ActivateTabAtIndexAction = {
+    type: TabActionTypes.activateTabAtIndex
+    payload: number
+}
 export type SetTabsAction = {
     type: TabActionTypes.setTabs
     payload: Array<string>
@@ -42,7 +47,7 @@ export type setTabsDirectionAction = {
     type: TabActionTypes.setDirection
     payload: TabDirection
 }
-export type TabAction = ClearActiveTabAction | SetActiveTabAction | SelectTabAction | SetAutoSelectAction | SetTabsAction | setTabsDirectionAction
+export type TabAction = ClearActiveTabAction | SetActiveTabAction | SelectTabAction | SetAutoSelectAction | SetTabsAction | setTabsDirectionAction | ActivateTabAtIndexAction
 
 export const initialState: TabState = {
     activeTab: '',
@@ -96,6 +101,8 @@ export const reducer: Reducer<TabState, TabAction> = (state, action) => {
                 activeTab: action.payload,
                 selectedTab: action.payload,
             }
+        case TabActionTypes.activateTabAtIndex:
+            return setActiveTabReducer(state, { type: TabActionTypes.setActiveTab, payload: state.tabs[action.payload] })
         case TabActionTypes.setNextTabAsActive:
             let nextTabIndex = state.tabs.findIndex(id => id === action.payload)
             if (nextTabIndex + 1 >= state.tabs.length) {

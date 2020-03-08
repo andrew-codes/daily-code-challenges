@@ -64,8 +64,8 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
 - [x] Given a tab is selected, and the tabs are vertical, when using the left, and right arrow keys, then they maintain their default behavior (scrolls up/down page).
 - [x] Given the tabs are not automatically selected, and a non-selected tab is focused, when using the Space or Enter keys, then the focused tab's tab panel becomes selected.
 - [ ] Given the tabs are automatically selected, when navigating to other tabs, then the act of navigating to a new tab also marks the tab as selected.
-- [ ] Given a tab is focused, when using the Home key, then the first tab becomes focused.
-- [ ] Given a tab is focused, when using the End key, then the last tab becomes focused.
+- [x] Given a tab is focused, when using the Home key, then the first tab becomes focused.
+- [x] Given a tab is focused, when using the End key, then the last tab becomes focused.
 
 ### Horizontal Tabs
 
@@ -116,6 +116,29 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
         <TabPanel tabId="Tab:3">I am the contents of Tab:3</TabPanel>
       </TabPanels>
     </SpacedGroup>
+  </TabManager>
+</Preview>
+
+## Auto-Select Tabs
+
+<Preview>
+  <TabManager autoSelect defaultSelected="Tab:1">
+    <Tabs label="Horizontal Example">
+      <Tab id="Tab:1">
+        <BootstrapTab>First Tab</BootstrapTab>
+      </Tab>
+      <Tab id="Tab:2">
+        <BootstrapTab>Second Tab</BootstrapTab>
+      </Tab>
+      <Tab id="Tab:3">
+        <BootstrapTab>Third Tab</BootstrapTab>
+      </Tab>
+    </Tabs>
+    <TabPanels>
+      <TabPanel tabId="Tab:1">I am the contents of Tab:1 <button>focus me</button></TabPanel>
+      <TabPanel tabId="Tab:2">I am the contents of Tab:2</TabPanel>
+      <TabPanel tabId="Tab:3">I am the contents of Tab:3</TabPanel>
+    </TabPanels>
   </TabManager>
 </Preview>
 

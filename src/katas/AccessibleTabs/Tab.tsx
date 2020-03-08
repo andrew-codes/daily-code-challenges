@@ -37,7 +37,7 @@ export const Tab: FC<TabProps> = ({ children, id }) => {
         dispatch({ type: TabActionTypes.setActiveTab, payload: id })
     }
     const handleKeyDown = (evt) => {
-        if (direction === TabDirection.vertical && (evt.keyCode === 40 || evt.keyCode === 38)) {
+        if ((direction === TabDirection.vertical && (evt.keyCode === 40 || evt.keyCode === 38)) || evt.keyCode === 36 || evt.keyCode === 35) {
             evt.preventDefault()
         }
         if (evt.keyCode === 13) {
@@ -46,8 +46,17 @@ export const Tab: FC<TabProps> = ({ children, id }) => {
         }
     }
     const handleKeyUp = (evt) => {
+        console.log(evt.keyCode)
         if (evt.keyCode === 32) {
             dispatch({ type: TabActionTypes.selectTab, payload: id })
+            return
+        }
+        if (evt.keyCode === 36) {
+            dispatch({ type: TabActionTypes.activateTabAtIndex, payload: 0 })
+            return
+        }
+        if (evt.keyCode === 35) {
+            dispatch({ type: TabActionTypes.activateTabAtIndex, payload: tabs.length - 1 })
             return
         }
         if (direction === TabDirection.horizontal) {
