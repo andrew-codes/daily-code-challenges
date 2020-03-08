@@ -1,0 +1,243 @@
+import { Meta, Props, Preview } from '@storybook/addon-docs/blocks'
+import {
+  TabDirection,
+  Tab,
+  TabPanel,
+  TabPanels,
+  TabManager,
+  Tabs,
+} from './'
+import { BootstrapTab } from './exampleTabs/BootstrapTab'
+import bootstrapTabSrc from '!!raw-loader!./exampleTabs/BootstrapTab'
+import { TabBelow } from './exampleTabs/TabBelow'
+import tabBelowSrc from '!!raw-loader!./exampleTabs/TabBelow'
+import { VerticalTab } from './exampleTabs/VerticalTab'
+import verticalTabSrc from '!!raw-loader!./exampleTabs/VerticalTab'
+import { SpacedGroup } from '../SpacedGroup'
+import { KataHeader } from '../KataHeader'
+import { CodeBlock }from '../CodeBlock'
+
+<Meta title="2020-03-06: Accessible Tabs" />
+
+<KataHeader name="Accessible Tabs" />
+
+## Problem
+
+While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata does function correctly, it does not follow accessibility guidelines for tablists; per the [WAI-ARIA 1.1](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel). Create a component(s) for creating tabs that follow these guidelines; including keyboard interactions and ARIA labels for roles, states, and properties.
+
+### Original Requirements
+
+- [x] A set of tabs may have a layout may of vertical or horizontal.
+- [x] Tabs are rendered independently from their respective TabContent; i.e. a tab's content can be rendered anywhere on the page (not specific to being under/above/left/right of the Tabs).
+- [x] Only the currently active tab's corresponding TabBody is displayed within the `TabPanels`.
+- [x] The tab's index, and whether it is currently selected is provided to each of the `Tab` components' children.
+- [x] Defaults to the first tab being selected/
+- [x] A tab may default to be selected by a tab's ID.
+- [x] Tabs may be nested within the tab content of another tab list.
+
+### Additional Accessbility Requirements
+
+#### ARIA Roles, States and Properties
+
+- [x] The list of tabs has the "tablist" `role` attribute.
+- [x] Tab list contains an `aria-label` attribute set to the subject matter of the tabs.
+- [x] Each tab is a button element.
+- [x] Each tab has the "tab" `role` attribute.
+- [x] Each tab has an `ID` attribute.
+- [x] Each tab has an `aria-controls` attribute which is set to the `ID` of its associated tab panel.
+- [x] Each non-selected tab is set to`aria-selected=false`.
+- [x] The currently selected tab is set to`aria-selected=true`.
+- [x] Each tab panel has the "tabpanel" `role` attribute.
+- [x] Each tab panel has an `ID` attribute.
+- [x] Each tab panel has an `aria-labeledby` attribute set to the associated tab's `ID`.
+- [x] Each non-selected tab panel is rendered to the screen and hidden via the `hidden="hidden"` attribute.
+- [x] Vertical tabs have an `aria-orientation` set to vertical.
+
+#### Keyboard interactions
+
+- [x] Given the immediately previous focusable element is focused, when tabbing forward, then the selected tab becomes focused.
+- [x] Given a tab is selected and focused, when tabbing to the next element, then focus is moved to the tab panel.
+- [x] Given a tab is selected, and the panel is focused, when tabbing to the next element, then focus is moved to the next focusable element in the selected tab panel.
+- [x] Given a tab is selected, and the panel is focused, and there are no focusable elements in the selected tab panel, when tabbing to the next element, then focus is moved to next focusable element outside the tab panels.
+- [x] Given a tab is selected, and the tabs are horizontal, when using the left, and right arrow keys, then the focus is cycled to the next/previous tab in the tab list.
+- [x] Given a tab is selected, and the tabs are vertical, when using the up, and down arrow keys, then the focus is cycled to the next/previous tab in the tab list.
+- [x] Given a tab is selected, and the tabs are vertical, when using the left, and right arrow keys, then they maintain their default behavior (scrolls up/down page).
+- [x] Given the tabs are not automatically selected, and a non-selected tab is focused, when using the Space or Enter keys, then the focused tab's tab panel becomes selected.
+- [ ] Given the tabs are automatically selected, when navigating to other tabs, then the act of navigating to a new tab also marks the tab as selected.
+- [x] Given a tab is focused, when using the Home key, then the first tab becomes focused.
+- [x] Given a tab is focused, when using the End key, then the last tab becomes focused.
+
+### Horizontal Tabs
+
+<CodeBlock language="tsx" code={bootstrapTabSrc} />
+
+<Preview>
+  <TabManager>
+    <Tabs label="Horizontal Example">
+      <Tab id="Tab:1">
+        <BootstrapTab>First Tab</BootstrapTab>
+      </Tab>
+      <Tab id="Tab:2">
+        <BootstrapTab>Second Tab</BootstrapTab>
+      </Tab>
+      <Tab id="Tab:3">
+        <BootstrapTab>Third Tab</BootstrapTab>
+      </Tab>
+    </Tabs>
+    <TabPanels>
+      <TabPanel tabId="Tab:1">I am the contents of Tab:1 <button>focus me</button></TabPanel>
+      <TabPanel tabId="Tab:2">I am the contents of Tab:2</TabPanel>
+      <TabPanel tabId="Tab:3">I am the contents of Tab:3</TabPanel>
+    </TabPanels>
+  </TabManager>
+</Preview>
+
+### Vertical Tabs
+
+<CodeBlock language="tsx" code={verticalTabSrc} />
+
+<Preview>
+  <TabManager>
+    <SpacedGroup spacing={8}>
+      <Tabs direction={TabDirection.vertical}  label="Vertical Example">
+        <Tab id="Tab:1">
+          <VerticalTab>First Tab</VerticalTab>
+        </Tab>
+        <Tab id="Tab:2">
+          <VerticalTab>Second Tab</VerticalTab>
+        </Tab>
+        <Tab id="Tab:3">
+          <VerticalTab>Third Tab</VerticalTab>
+        </Tab>
+      </Tabs>
+      <TabPanels>
+        <TabPanel tabId="Tab:1">I am the contents of Tab:1</TabPanel>
+        <TabPanel tabId="Tab:2">I am the contents of Tab:2</TabPanel>
+        <TabPanel tabId="Tab:3">I am the contents of Tab:3</TabPanel>
+      </TabPanels>
+    </SpacedGroup>
+  </TabManager>
+</Preview>
+
+## Auto-Select Tabs
+
+<Preview>
+  <TabManager autoSelect defaultSelected="Tab:1">
+    <Tabs label="Horizontal Example">
+      <Tab id="Tab:1">
+        <BootstrapTab>First Tab</BootstrapTab>
+      </Tab>
+      <Tab id="Tab:2">
+        <BootstrapTab>Second Tab</BootstrapTab>
+      </Tab>
+      <Tab id="Tab:3">
+        <BootstrapTab>Third Tab</BootstrapTab>
+      </Tab>
+    </Tabs>
+    <TabPanels>
+      <TabPanel tabId="Tab:1">I am the contents of Tab:1 <button>focus me</button></TabPanel>
+      <TabPanel tabId="Tab:2">I am the contents of Tab:2</TabPanel>
+      <TabPanel tabId="Tab:3">I am the contents of Tab:3</TabPanel>
+    </TabPanels>
+  </TabManager>
+</Preview>
+
+## Nesting Tabs
+
+<Preview>
+  <TabManager defaultSelected="Tab:1">
+      <div style={{borderBottom: '1px solid black'}}>
+        <Tabs>
+          <Tab id="Tab:1">
+            <BootstrapTab>Outer Tab 1</BootstrapTab>
+          </Tab>
+          <Tab id="Tab:2">
+            <BootstrapTab>Outer Tab 2</BootstrapTab>
+          </Tab>
+          <Tab id="Tab:3">
+            <BootstrapTab>Outer Tab 3</BootstrapTab>
+          </Tab>
+        </Tabs>
+      </div>
+      <TabPanels>
+        <TabPanel tabId="Tab:1">
+          <TabManager>
+            <Tabs>
+              <Tab id="Tab:11">
+                <BootstrapTab>Nested Tab 1</BootstrapTab>
+              </Tab>
+              <Tab id="Tab:12">
+                <BootstrapTab>Nested Tab 2</BootstrapTab>
+              </Tab>
+              <Tab id="Tab:13">
+                <BootstrapTab>Nested Tab 3</BootstrapTab>
+              </Tab>
+            </Tabs>
+              <TabPanel tabId="Tab:11">I am the content of Nested Tab 1</TabPanel>
+              <TabPanel tabId="Tab:12">I am the content of Nested Tab 2</TabPanel>
+              <TabPanel tabId="Tab:13">I am the content of Nested Tab 3</TabPanel>
+          </TabManager>
+          </TabPanel>
+        <TabPanel tabId="Tab:2">I am the contents of Tab:2</TabPanel>
+        <TabPanel tabId="Tab:3">I am the contents of Tab:3</TabPanel>
+      </TabPanels>
+  </TabManager>
+</Preview>
+
+
+## Props
+
+### TabManager
+
+<Props of={TabManager} />
+
+### Tabs
+
+<Props of={Tabs} />
+
+### Tab
+
+<Props of={Tab} />
+
+### Children of each Tab Receive Props
+
+<table style={{width: '100%'}}>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <span>selected</span>
+        <span title="Required">*</span>
+      </td>
+      <td>
+        <div>
+          <span>boolean</span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>tabIndex</span>
+        <span title="Required">*</span>
+      </td>
+      <td>
+        <div>
+          <span>number</span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+### TabPanels
+
+<Props of={TabPanels} />
+
+### TabPanel
+
+<Props of={TabPanel} />
