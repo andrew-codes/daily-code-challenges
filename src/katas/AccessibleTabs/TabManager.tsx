@@ -1,8 +1,20 @@
-import React, { FC, createContext, useState, useEffect } from 'react'
+import React, { FC, createContext, useEffect, useReducer, Dispatch } from 'react'
 import { first } from 'lodash'
+import { reducer, initialState, TabActionTypes, TabState, TabAction } from './TabState'
 import { TabDirection } from './Tabs'
 
-export const TabContext = createContext({})
+const noopDispatch: Dispatch<TabAction> = state => state
+
+export type TabContextType = {
+    dispatch: Dispatch<TabAction>,
+} & Pick<TabState, 'activeTab' | 'direction' | 'selectedTab' | 'tabs'>
+export const TabContext = createContext<TabContextType>({
+    direction: TabDirection.horizontal,
+    dispatch: noopDispatch,
+    activeTab: '',
+    selectedTab: '',
+    tabs: []
+})
 
 const defaultProps = {
     autoSelect: false,
@@ -17,51 +29,31 @@ export const TabManager: FC<TabManagerProps> = ({
     children,
     defaultSelected,
 }) => {
-    const [selectedTabId, setSelectedTabId] = useState('')
-    const [activeTabId, setActiveTabId] = useState('')
-    const [direction, setDirection] = useState(TabDirection.horizontal)
-    const [tabIndices, setTabIndices] = useState({})
+    const [{ activeTab, direction, selectedTab, tabs }, dispatch] = useReducer(reducer, { ...initialState, autoSelect })
 
-    const selectTab = (id: string) => {
-        setSelectedTabId(id)
-        setActiveTabId(id)
-    }
-
-    const setActiveTab = (id: string) => {
-        if (autoSelect) {
-            selectTab(id)
-        }
-        setActiveTabId(id)
-    }
-
-    const clearActiveTab = () => {
-        setActiveTabId('')
-    }
+    useEffect(() => {
+        dispatch({ type: TabActionTypes.setAutoSelect, payload: { autoSelect } })
+    }, [autoSelect])
 
     useEffect(() => {
         if (defaultSelected) {
-            setSelectedTabId(defaultSelected)
+            dispatch({ type: TabActionTypes.selectTab, payload: defaultSelected })
         } else {
-            const tabIds = Object.entries(tabIndices)
-            const defaultSelectedTab = first(tabIds)
+            const defaultSelectedTab = first(tabs)
             if (defaultSelectedTab) {
-                setSelectedTabId(defaultSelectedTab[0])
+                dispatch({ type: TabActionTypes.selectTab, payload: defaultSelectedTab })
             }
         }
-    }, [defaultSelected, tabIndices])
+    }, [defaultSelected, dispatch, tabs])
 
     return (
         <TabContext.Provider
             value={{
-                activeTabId,
-                clearActiveTab,
+                dispatch,
                 direction,
-                selectedTabId,
-                selectTab,
-                setActiveTab,
-                setDirection,
-                setTabIndices,
-                tabIndices,
+                tabs,
+                selectedTab,
+                activeTab
             }}
         >
             {children}

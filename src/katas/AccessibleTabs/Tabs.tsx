@@ -1,18 +1,12 @@
 import React, { FC, useContext, useEffect } from 'react'
-import { merge } from 'lodash'
-import styled from 'styled-components'
 import { SpacedGroup, Direction } from '../SpacedGroup'
 import { TabContext } from './TabManager'
+import { TabActionTypes } from './TabState'
 
 export enum TabDirection {
     horizontal = 'horizontal',
     vertical = 'vertical',
 }
-
-const TabsRoot = styled.div.attrs({ click: 'onClick' }) <Partial<TabsProps>>`
-    cursor: pointer;
-    width: ${({ direction }) => direction === TabDirection.vertical ? '100%' : undefined}
-`
 
 const defaultProps = {
     direction: TabDirection.horizontal,
@@ -23,19 +17,16 @@ export type TabsProps = {
 } & typeof defaultProps
 
 export const Tabs: FC<TabsProps> = ({ children, direction, label }) => {
-    const { setDirection, selectedTabId, setTabIndices } = useContext(TabContext)
+    const { dispatch } = useContext(TabContext)
 
     useEffect(() => {
-        const tabIndices = React.Children.toArray(children).reduce(
-            (acc, child, index) => merge({}, acc, { [child.props.id]: index }),
-            {}
-        )
-        setTabIndices(tabIndices)
-    }, [React.Children.toArray(children).length, setTabIndices])
+        const tabIds = React.Children.toArray(children).map((child) => child.props.id)
+        dispatch({ type: TabActionTypes.setTabs, payload: tabIds })
+    }, [React.Children.count(children), dispatch])
 
     useEffect(() => {
-        setDirection(direction)
-    }, [direction, setDirection])
+        dispatch({ type: TabActionTypes.setDirection, payload: direction })
+    }, [direction, dispatch])
 
     return (
         <SpacedGroup

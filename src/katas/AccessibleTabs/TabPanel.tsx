@@ -10,10 +10,10 @@ export type TabContentProps = {
     tabId: string
 }
 export const TabPanel: FC<TabContentProps> = ({ children, tabId }) => {
-    const { selectedTabId } = useContext(TabContext)
+    const { selectedTab } = useContext(TabContext)
 
     return (
-        <Root aria-labelledby={tabId} hidden={selectedTabId !== tabId} id={`${tabId}-tabpanel`} role="tabpanel" tabIndex={0}>
+        <Root aria-labelledby={tabId} hidden={selectedTab !== tabId} id={`${tabId}-tabpanel`} role="tabpanel" tabIndex={0}>
             {children}
         </Root>
     )

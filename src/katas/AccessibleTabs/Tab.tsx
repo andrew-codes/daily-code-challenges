@@ -2,6 +2,7 @@ import React, { FC, useMemo, useContext, useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import { TabContext } from './TabManager'
 import { TabDirection } from './Tabs'
+import { TabActionTypes } from './TabState'
 
 const NoStylesButton = styled.button<{ direction: TabDirection }>`
     appearance: none;
@@ -20,106 +21,81 @@ export type TabProps = {
     id: string
 }
 export const Tab: FC<TabProps> = ({ children, id }) => {
-    const { activeTabId, clearActiveTab, direction, selectTab, selectedTabId, tabIndices, setActiveTab } = useContext(TabContext)
+    const { activeTab, direction, dispatch, selectedTab, tabs } = useContext(TabContext)
+
     const buttonRef = useRef()
     useEffect(() => {
-        if (id === activeTabId) {
-            buttonRef.current.focus()
-        }
-    }, [activeTabId, buttonRef, id])
+        if (activeTab !== id || !buttonRef?.current) return
+        buttonRef.current.focus()
+    }, [activeTab, id, buttonRef.current])
 
-    const getPreviousTabId = (id) => {
-        const tabIndex = tabIndices[id]
-        let index
-        if (tabIndex - 1 < 0) {
-            index = Object.keys(tabIndices).length - 1
-        } else {
-            index = tabIndex - 1
-        }
-        return Object.keys(tabIndices)[index]
+    const handleBlur = () => {
+        dispatch({ type: TabActionTypes.clearActiveTab, payload: id })
     }
-    const getNextTabId = (id) => {
-        const tabIndex = tabIndices[id]
-        let index
-        if (tabIndex + 1 > Object.keys(tabIndices).length - 1) {
-            index = 0
-        } else {
-            index = tabIndex + 1
-        }
-        return Object.keys(tabIndices)[index]
+    const handleFocus = () => {
+        if (id === activeTab) return
+        dispatch({ type: TabActionTypes.setActiveTab, payload: id })
     }
-
-    const handleKeyUp = evt => {
-        if (evt.keyCode === 32) {
-            selectTab(id)
+    const handleKeyDown = (evt) => {
+        if (direction === TabDirection.vertical && (evt.keyCode === 40 || evt.keyCode === 38)) {
+            evt.preventDefault()
+        }
+        if (evt.keyCode === 13) {
+            dispatch({ type: TabActionTypes.selectTab, payload: id })
             return
         }
-        let nextTabId
+    }
+    const handleKeyUp = (evt) => {
+        if (evt.keyCode === 32) {
+            dispatch({ type: TabActionTypes.selectTab, payload: id })
+            return
+        }
         if (direction === TabDirection.horizontal) {
             if (evt.keyCode === 39) {
-                nextTabId = getNextTabId(activeTabId)
+                dispatch({ type: TabActionTypes.setNextTabAsActive, payload: id })
             } else if (evt.keyCode === 37) {
-                nextTabId = getPreviousTabId(activeTabId)
+                dispatch({ type: TabActionTypes.setPreviousTabAsActive, payload: id })
             }
         } else if (direction === TabDirection.vertical) {
             evt.preventDefault();
             if (evt.keyCode === 40) {
-                nextTabId = getNextTabId(activeTabId)
+                dispatch({ type: TabActionTypes.setNextTabAsActive, payload: id })
             } else if (evt.keyCode === 38) {
-                nextTabId = getPreviousTabId(activeTabId)
+                dispatch({ type: TabActionTypes.setPreviousTabAsActive, payload: id })
             }
         }
-        if (!nextTabId) return
-        setActiveTab(nextTabId)
     }
+    const handleMouseUp = () => { dispatch({ type: TabActionTypes.selectTab, payload: id }) }
 
-    const handleKeyDown = (evt) => {
-        if (evt.keyCode === 13) {
-            selectTab(id)
-            return
-        }
-        if (direction === TabDirection.vertical && (evt.keyCode === 40 || evt.keyCode === 38)) {
-            evt.preventDefault()
-        }
-    }
-
-    const handleSelection = tabId => {
-        selectTab(tabId)
-    }
 
     const tabAwareChildren = useMemo(
         () =>
             React.Children.map(children, (child, index) =>
                 React.cloneElement(child, {
-                    selected: selectedTabId === id,
-                    active: activeTabId === id,
-                    tabIndex: tabIndices[id],
+                    selected: selectedTab === id,
+                    active: activeTab === id,
+                    tabIndex: tabs.findIndex(tabId => tabId === child.props.id),
                 })
             ),
-        [activeTabId, selectedTabId, children, tabIndices, id]
+        [activeTab, selectedTab, children, tabs]
     )
+
+    const selected = selectedTab === id
 
     return (
         <NoStylesButton
             aria-controls={`${id}-tabpanel`}
-            aria-selected={id === selectedTabId}
+            aria-selected={selected}
             direction={direction}
             id={id}
-            onBlur={() => {
-                if (!Object.values(tabIndices).includes(document.activeElement.id)) {
-                    clearActiveTab()
-                }
-            }}
-            onFocus={() => {
-                setActiveTab(id)
-            }}
-            onMouseDown={() => { setActiveTab(id) }}
-            onMouseUp={() => { handleSelection(id) }}
+            onBlur={handleBlur}
+            onFocus={handleFocus}
             onKeyDown={handleKeyDown}
             onKeyUp={handleKeyUp}
+            onMouseUp={handleMouseUp}
             ref={buttonRef}
             role="tab"
-            tabIndex={selectedTabId !== id ? -1 : undefined}
+            tabIndex={!selected ? -1 : undefined}
             type="button"
         >
             {tabAwareChildren}
