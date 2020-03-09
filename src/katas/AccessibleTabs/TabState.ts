@@ -98,6 +98,7 @@ export const reducer: Reducer<TabState, TabAction> = (state, action) => {
         case TabActionTypes.selectTab:
             return {
                 ...state,
+                activeTab: action.payload,
                 selectedTab: action.payload,
             }
         case TabActionTypes.activateTabAtIndex:
