@@ -1,4 +1,4 @@
-import { Meta, Props, Preview } from '@storybook/addon-docs/blocks'
+import { Meta, Props } from '@storybook/addon-docs/blocks'
 import {
   TabDirection,
   Tab,
@@ -15,6 +15,7 @@ import { VerticalTab } from './exampleTabs/VerticalTab'
 import verticalTabSrc from '!!raw-loader!./exampleTabs/VerticalTab'
 import { SpacedGroup } from '../SpacedGroup'
 import { KataHeader } from '../KataHeader'
+import { Preview } from '../Preview'
 import { CodeBlock }from '../CodeBlock'
 
 <Meta title="2020-02-29: Tabs" />
@@ -47,11 +48,11 @@ import { CodeBlock }from '../CodeBlock'
       </Tab>
     </Tabs>
     <div style={{border: '1px solid lightblue', padding: '1rem'}}>
-    <TabsContent>
-      <TabContent tabId="Tab:1">I am the contents of Tab:1</TabContent>
-      <TabContent tabId="Tab:2">I am the contents of Tab:2</TabContent>
-      <TabContent tabId="Tab:3">I am the contents of Tab:3</TabContent>
-    </TabsContent>
+      <TabsContent>
+        <TabContent tabId="Tab:1">I am the contents of Tab:1</TabContent>
+        <TabContent tabId="Tab:2">I am the contents of Tab:2</TabContent>
+        <TabContent tabId="Tab:3">I am the contents of Tab:3</TabContent>
+      </TabsContent>
     </div>
   </TabManager>
 </Preview>
