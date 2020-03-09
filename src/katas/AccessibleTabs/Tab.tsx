@@ -46,7 +46,6 @@ export const Tab: FC<TabProps> = ({ children, id }) => {
         }
     }
     const handleKeyUp = (evt) => {
-        console.log(evt.keyCode)
         if (evt.keyCode === 32) {
             dispatch({ type: TabActionTypes.selectTab, payload: id })
             return
