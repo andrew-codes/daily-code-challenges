@@ -37,7 +37,7 @@ export type SpacedGroupProps = {
   as: ElementType | ComponentClass | StatelessComponent | FunctionComponent
 } & RootProps
 export const SpacedGroup = ({ as, ...rest }: SpacedGroupProps) => {
-  const Root = styled(as)`
+  const Root = styled(as).attrs({ centered: '' })`
     display: flex;
     padding: 0;
     width: ${({ spread }) => spread ? '100%' : undefined};
