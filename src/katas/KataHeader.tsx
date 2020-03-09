@@ -27,7 +27,7 @@ export type KataHeaderProps = {
 }
 
 export const KataHeader: FC<KataHeaderProps> = ({ name }) => {
-    const kataDirectory = name.replace(/ /g, '-')
+    const kataDirectory = name.replace(/ /g, '')
     return (
         <Header>
             <Bio>
