@@ -82,7 +82,7 @@ export const Tab: FC<TabProps> = ({ children, id }) => {
                 React.cloneElement(child, {
                     selected: selectedTab === id,
                     active: activeTab === id,
-                    tabIndex: tabs.findIndex(tabId => tabId === child.props.id),
+                    tabIndex: tabs.findIndex(tabId => tabId === id),
                 })
             ),
         [activeTab, selectedTab, children, tabs]
