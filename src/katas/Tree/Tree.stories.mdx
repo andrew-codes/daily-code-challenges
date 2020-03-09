@@ -59,15 +59,13 @@ Example Data used in all Examples:
 
 Example Tree Usage with a SimpleNodeRenderer:
 
-<CodeBlock language="js" code={simpleNodeRendererSrc} />
-
 <Preview>
   <Tree nodes={nodes} NodeRenderer={SimpleNodeRenderer} />
 </Preview>
 
-## Tree Expansion and Selection
+<CodeBlock language="js" code={simpleNodeRendererSrc} />
 
-<CodeBlock language="tsx" code={expansionNodeRendererSrc} />
+## Tree Expansion and Selection
 
 ### Expand Node:2 and Node:6 by Default
 
@@ -78,6 +76,8 @@ Example Tree Usage with a SimpleNodeRenderer:
     nodes={nodes}
   />
 </Preview>
+
+<CodeBlock language="tsx" code={expansionNodeRendererSrc} />
 
 ### Expand all Nodes by Default
 
@@ -91,12 +91,11 @@ Example Tree Usage with a SimpleNodeRenderer:
 
 ## Leaf Node Selections
 
-<CodeBlock language="tsx" code={trackSelectedNodesSrc} />
-
 <Preview>
   <TrackSelectedNodes nodes={nodes} />
 </Preview>
 
+<CodeBlock language="tsx" code={trackSelectedNodesSrc} />
 
 ## Props
 

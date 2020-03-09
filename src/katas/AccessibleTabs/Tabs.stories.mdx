@@ -69,8 +69,6 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
 
 ### Horizontal Tabs
 
-<CodeBlock language="tsx" code={bootstrapTabSrc} />
-
 <Preview>
   <TabManager>
     <Tabs label="Horizontal Example">
@@ -92,9 +90,9 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
   </TabManager>
 </Preview>
 
-### Vertical Tabs
+<CodeBlock language="tsx" code={bootstrapTabSrc} />
 
-<CodeBlock language="tsx" code={verticalTabSrc} />
+### Vertical Tabs
 
 <Preview>
   <TabManager>
@@ -118,6 +116,8 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
     </SpacedGroup>
   </TabManager>
 </Preview>
+
+<CodeBlock language="tsx" code={verticalTabSrc} />
 
 ## Auto-Select Tabs
 
@@ -209,6 +209,17 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <td>
+        <span>active</span>
+        <span title="Required">*</span>
+      </td>
+      <td>
+        <div>
+          <span>boolean</span>
+        </div>
+      </td>
+    </tr>
     <tr>
       <td>
         <span>selected</span>
