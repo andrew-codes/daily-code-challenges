@@ -20,9 +20,9 @@ const defaultProps = {
     autoSelect: false,
 }
 export type TabManagerProps = {
-    defaultSelected: string
+    defaultSelected?: string
     autoSelect?: boolean
-} & typeof defaultProps
+}
 
 export const TabManager: FC<TabManagerProps> = ({
     autoSelect,

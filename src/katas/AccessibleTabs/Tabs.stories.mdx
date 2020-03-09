@@ -148,7 +148,7 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
 <Preview>
   <TabManager defaultSelected="Tab:1">
       <div style={{borderBottom: '1px solid black'}}>
-        <Tabs>
+        <Tabs label="Nesting Example">
           <Tab id="Tab:1">
             <BootstrapTab>Outer Tab 1</BootstrapTab>
           </Tab>
@@ -163,7 +163,7 @@ While the previously completed [Tabs](/?path=/docs/2020-02-29-tabs--page) kata d
       <TabPanels>
         <TabPanel tabId="Tab:1">
           <TabManager>
-            <Tabs>
+            <Tabs label="Nested Tabs">
               <Tab id="Tab:11">
                 <BootstrapTab>Nested Tab 1</BootstrapTab>
               </Tab>

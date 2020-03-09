@@ -12,9 +12,9 @@ const defaultProps = {
     direction: TabDirection.horizontal,
 }
 export type TabsProps = {
-    direction: TabDirection,
+    direction?: TabDirection,
     label: string,
-} & typeof defaultProps
+}
 
 export const Tabs: FC<TabsProps> = ({ children, direction, label }) => {
     const { dispatch } = useContext(TabContext)
